@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800&family=Great+Vibes&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════
+   LIGHT ELEGANT WEDDING THEME
+   ══════════════════════════════════ */
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #D6D6D6; /* Daha kapalı bir açık gri */
+  color: #1A1A1A;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: rgba(200, 164, 90, 0.4);
+  color: #fff;
+}
+
+::-moz-selection {
+  background-color: rgba(200, 164, 90, 0.4);
+  color: #fff;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #D6D6D6; }
+::-webkit-scrollbar-thumb {
+  background: #A0A0A0;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C8A45A;
+}
+
+/* ── Heading Font ── */
+.font-heading {
+  font-family: 'Cinzel Decorative', 'Cinzel', 'Playfair Display', serif;
+}
+
+.font-script {
+  font-family: 'Great Vibes', cursive;
+}
+
+.nav-link-styled {
+  position: relative;
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  padding: 4px 0;
+  text-transform: capitalize;
+}
+
+.nav-link-styled:hover {
+  color: #C8A45A;
+}
+
+.nav-link-active {
+  color: #C8A45A !important;
+}
+
+/* ── Film Strip Hardware Acceleration (If used anywhere else) ── */
+.film-strip-scroll {
+  animation: filmScroll 25s linear infinite;
+  will-change: transform;
+}
+
+.film-strip-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes filmScroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ── Ken Burns ── */
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.05) translate(1%, -1%); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+
+/* ── Soft Card (Koyu Detaylı Açık Temaya Uygun - Koyu Kart) ── */
+.card-light {
+  background: #1A1A1A;
+  border: 1px solid rgba(200, 164, 90, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: all 0.4s ease;
+  color: #E5E5E5;
+}
+
+.card-light:hover {
+  border-color: rgba(200,164,90,0.5);
+  box-shadow: 0 10px 30px rgba(200,164,90,0.2);
+  transform: translateY(-2px);
+}
+
+/* ── Link Reset ── */
+a { text-decoration: none; }
+
+/* ── Shimmer (Gold Reflection on nav) ── */
+@keyframes silverShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.nav-shimmer {
+  background: linear-gradient(
+    90deg,
+    #8A8C8E 0%,
+    #8A8C8E 35%,
+    #C8A45A 50%,
+    #8A8C8E 65%,
+    #8A8C8E 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: silverShimmer 4s linear infinite;
+}
