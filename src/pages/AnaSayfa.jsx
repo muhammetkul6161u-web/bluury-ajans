@@ -153,7 +153,7 @@ const AnaSayfa = () => {
             viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.03, y: -5 }}
-            className="w-44 sm:w-56 md:w-68 lg:w-80 h-64 sm:h-80 md:h-[390px] lg:h-[460px] rounded-[1.5rem] shadow-[0_25px_60px_rgba(0,0,0,0.35)] overflow-hidden bg-[#FAFAF8] cursor-pointer ring-2 ring-white/10"
+            className="w-36 sm:w-44 md:w-56 lg:w-64 h-52 sm:h-64 md:h-[320px] lg:h-[380px] rounded-[1.5rem] shadow-[0_25px_60px_rgba(0,0,0,0.35)] overflow-hidden bg-[#FAFAF8] cursor-pointer ring-2 ring-white/10"
           >
             <img
               src="/ana sayfa/gözdeçk.webp"

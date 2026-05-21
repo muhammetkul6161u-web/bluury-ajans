@@ -36,10 +36,10 @@ const Portfolio = () => {
       ];
     } else if (activeCategory === "Reklam") {
       return [
-        { id: "Reklam-1", src: "/Portfoy/reklam/reklam1.webp", index: 0 },
-        { id: "Reklam-2", src: "/Portfoy/reklam/reklam2.webp", index: 1 },
-        { id: "Reklam-3", src: "/Portfoy/reklam/reklam3.webp", index: 2 },
-        { id: "Reklam-4", src: "/Portfoy/reklam/reklam4.webp", index: 3 },
+        { id: "Reklam-1", src: "/reklam/reklam1.webp", index: 0 },
+        { id: "Reklam-2", src: "/reklam/reklam2.webp", index: 1 },
+        { id: "Reklam-3", src: "/reklam/reklam3.webp", index: 2 },
+        { id: "Reklam-4", src: "/reklam/reklam4.webp", index: 3 },
       ];
     }
     return [];

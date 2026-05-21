@@ -53,7 +53,7 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 className={`nav-link-styled ${isActive(link.to) ? "nav-link-active nav-shimmer" : isScrolled ? "text-[#E5E5E5]" : "text-[#1A1A1A]"}`}
-                style={{ fontSize: "1.2rem", fontWeight: "600" }}
+                style={{ fontSize: "0.95rem", fontWeight: "600" }}
               >
                 <span className={isActive(link.to) ? "" : "nav-shimmer"}>
                   {link.label}
@@ -67,7 +67,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center justify-center gap-1.5 md:gap-2.5 no-underline group font-heading">
               <span
                 className={`text-[#C8A45A] group-hover:text-[#D4B76A] tracking-[0.08em] transition-all duration-500 ${
-                  isScrolled ? "text-lg md:text-3xl" : "text-xl md:text-[2.2rem]"
+                  isScrolled ? "text-base md:text-2xl" : "text-lg md:text-[1.8rem]"
                 }`}
               >
                 Blurry
@@ -78,12 +78,12 @@ const Navbar = () => {
                 width="80"
                 height="80"
                 className={`w-auto object-contain transition-all duration-500 ${
-                  isScrolled ? "h-8 md:h-14" : "h-10 md:h-20"
+                  isScrolled ? "h-7 md:h-11" : "h-9 md:h-16"
                 }`}
               />
               <span
                 className={`${isScrolled ? "text-[#A0A0A0]" : "text-[#555555]"} group-hover:text-[#D4B76A] tracking-[0.08em] transition-all duration-500 ${
-                  isScrolled ? "text-lg md:text-3xl" : "text-xl md:text-[2.2rem]"
+                  isScrolled ? "text-base md:text-2xl" : "text-lg md:text-[1.8rem]"
                 }`}
               >
                 Ajans
@@ -98,7 +98,7 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 className={`nav-link-styled ${isActive(link.to) ? "nav-link-active nav-shimmer" : isScrolled ? "text-[#E5E5E5]" : "text-[#1A1A1A]"}`}
-                style={{ fontSize: "1.2rem", fontWeight: "600" }}
+                style={{ fontSize: "0.95rem", fontWeight: "600" }}
               >
                 <span className={isActive(link.to) ? "" : "nav-shimmer"}>
                   {link.label}
