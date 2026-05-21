@@ -8,15 +8,16 @@
    LIGHT ELEGANT WEDDING THEME
    ══════════════════════════════════ */
 
-/* Laptop ekranları için orantılı küçültme (tüm rem değerlerini etkiler) */
+/* Mobil: varsayılan 16px */
 html {
-  font-size: 13.5px;
+  font-size: 16px;
 }
 
-/* Büyük masaüstü monitörler (1920px ve üzeri) orijinal boyut */
-@media (min-width: 1920px) {
+/* PC ekranları (1024px+): ekran genişliğine göre otomatik ölçekleme
+   1280px → 13px | 1366px → 13.4px | 1440px → 13.8px | 1536px → 14.2px | 1920px → 16px */
+@media (min-width: 1024px) {
   html {
-    font-size: 16px;
+    font-size: clamp(13px, 7px + 0.47vw, 16px);
   }
 }
 
