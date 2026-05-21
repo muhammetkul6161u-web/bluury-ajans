@@ -59,8 +59,7 @@ const About = () => {
 
   return (
     <section id="about" className="relative w-full pb-20 md:pb-24 bg-transparent">
-      {/* 🎬 Video Alanı — Navbar'ın arkasında kalacak şekilde yukarı taşıyor */}
-      <div className="relative w-full h-[100svh] overflow-hidden -mt-20 md:-mt-24 pointer-events-none">
+      <div className="relative w-full h-screen overflow-hidden -mt-20 md:-mt-24 pointer-events-none">
         {/* Tüm videolar her zaman DOM'da — sadece opacity ile geçiş */}
         {slides.map((slide, i) => (
           <motion.div

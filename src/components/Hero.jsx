@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative min-h-[100svh] flex items-center justify-center bg-black z-0">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center bg-black z-0">
       {/* Background Video — Loop + Faded (Soluk) Style */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <video
-          src="/ana sayfa/gözdevideo.mov"
+          src="/ana sayfa/gözdevideo.mp4"
           autoPlay
           loop
           muted

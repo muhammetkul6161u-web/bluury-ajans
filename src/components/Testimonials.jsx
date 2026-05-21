@@ -8,7 +8,7 @@ const REVIEWS = [
     id: 1,
     name: "sayinsumeyyes",
     comment: "Film gibi olmuş, harika bir çekim deneyimi yaşadık!",
-    video: "/Referans/referans1.mov",
+    video: "/Referans/referans1.mp4",
   },
   {
     id: 2,
