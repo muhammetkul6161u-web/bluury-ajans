@@ -81,8 +81,9 @@ const InstagramFeed = () => {
                 <div className="relative h-[300px] md:h-[340px] overflow-hidden">
                   <img
                     src={src}
-                    alt="Instagram Post"
+                    alt={`Instagram Çekimi ${index + 1} - Bluury Ajans`}
                     loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-all duration-500 ease-out group-hover/item:scale-105"
                   />
 

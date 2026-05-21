@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { Toaster } from "@/components/ui/toaster";
 import SplashScreen from "@/components/SplashScreen";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const AnaSayfa = lazy(() => import("@/pages/AnaSayfa"));
 const Hizmetler = lazy(() => import("@/pages/Hizmetler"));
@@ -61,6 +62,7 @@ function App() {
         </main>
         <Footer />
         <Toaster />
+        <WhatsAppButton />
       </div>
     </BrowserRouter>
   );

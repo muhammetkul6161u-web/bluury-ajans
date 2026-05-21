@@ -18,6 +18,21 @@ body {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+button, .button, input[type="button"], input[type="submit"] {
+  font-family: 'Inter', sans-serif !important;
+}
+
+input, textarea {
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
 }
 
 /* ── Selection ── */

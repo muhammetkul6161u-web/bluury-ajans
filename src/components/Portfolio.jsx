@@ -3,9 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const CATEGORIES = [
   { key: "Dugun", label: "Düğün" },
-  { key: "Moda", label: "Moda" },
-  { key: "urun", label: "Ürün" },
-  { key: "video", label: "Video" },
+  { key: "Dis", label: "Dış Çekim" },
+  { key: "Reklam", label: "Reklam" },
 ];
 
 const Portfolio = () => {
@@ -19,13 +18,31 @@ const Portfolio = () => {
   const minSwipeDistance = 50;
 
   const images = useMemo(() => {
-    const ext = (activeCategory === "urun" || activeCategory === "video") ? "jpg" : "webp";
-    const count = activeCategory === "video" ? 6 : 5;
-    return Array.from({ length: count }, (_, i) => ({
-      id: `${activeCategory}-${i + 1}`,
-      src: `/Portfoy/${activeCategory}/${activeCategory.toLowerCase()}${i + 1}.${ext}`,
-      index: i
-    }));
+    if (activeCategory === "Dugun") {
+      return [
+        { id: "Dugun-1", src: "/Portfoy/Dugun/dugun1.webp", index: 0 },
+        { id: "Dugun-2", src: "/Portfoy/Dugun/dugun2.jpg", index: 1 },
+        { id: "Dugun-3", src: "/Portfoy/Dugun/dugun3.webp", index: 2 },
+        { id: "Dugun-4", src: "/Portfoy/Dugun/dugun4.webp", index: 3 },
+        { id: "Dugun-5", src: "/Portfoy/Dugun/dugun5.webp", index: 4 },
+      ];
+    } else if (activeCategory === "Dis") {
+      return [
+        { id: "Dis-1", src: "/Portfoy/Dış/dış1.jpg", index: 0 },
+        { id: "Dis-2", src: "/Portfoy/Dış/dış2.jpg", index: 1 },
+        { id: "Dis-3", src: "/Portfoy/Dış/dış3.jpg", index: 2 },
+        { id: "Dis-4", src: "/Portfoy/Dış/dış4.webp", index: 3 },
+        { id: "Dis-5", src: "/Portfoy/Dış/dış5.webp", index: 4 },
+      ];
+    } else if (activeCategory === "Reklam") {
+      return [
+        { id: "Reklam-1", src: "/Portfoy/reklam/reklam1.webp", index: 0 },
+        { id: "Reklam-2", src: "/Portfoy/reklam/reklam2.webp", index: 1 },
+        { id: "Reklam-3", src: "/Portfoy/reklam/reklam3.webp", index: 2 },
+        { id: "Reklam-4", src: "/Portfoy/reklam/reklam4.webp", index: 3 },
+      ];
+    }
+    return [];
   }, [activeCategory]);
 
   // Handle keyboard arrow navigation for premium desktop experience
@@ -105,7 +122,7 @@ const Portfolio = () => {
               setActiveCategory(cat.key);
               setCurrentIndex(0);
             }}
-            className={`text-sm md:text-base tracking-[0.2em] uppercase font-semibold transition-all duration-500 relative pb-2 bg-transparent border-none cursor-pointer font-heading ${
+            className={`text-sm md:text-base tracking-[0.2em] uppercase font-semibold transition-all duration-500 relative pb-2 bg-transparent border-none cursor-pointer ${
               activeCategory === cat.key
                 ? "text-[#C8A45A] scale-105"
                 : "text-black/60 hover:text-black"
@@ -185,15 +202,16 @@ const Portfolio = () => {
                   {/* Görsel */}
                   <img
                     src={img.src}
-                    alt={img.id}
+                    alt={`${activeCategory} Portfolyo Çekimi ${index + 1} - Bluury Ajans`}
                     className="w-full h-full object-cover pointer-events-none select-none"
-                    loading="eager"
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => { e.target.style.display = 'none'; }}
                   />
 
-                  {/* Üstüne Gelindiğinde Çıkan Zarif Overlay */}
+                  {/* Üstüne Gelindiğinde Çıkan Zarif Overlay — Mobilde her zaman görünür */}
                   {isActive && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 md:opacity-0 md:hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
                       <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white text-xs font-semibold tracking-wider uppercase">
                         <svg className="w-3.5 h-3.5 animate-pulse text-[#C8A45A]" fill="currentColor" viewBox="0 0 20 20">
                           <circle cx="10" cy="10" r="10" />

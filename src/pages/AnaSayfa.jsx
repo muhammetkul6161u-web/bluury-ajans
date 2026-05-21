@@ -7,43 +7,44 @@ import { Link } from "react-router-dom";
 import { Instagram } from "lucide-react";
 import DecoratedHeading from "@/components/DecoratedHeading";
 import InstagramModal from "@/components/InstagramModal";
+import LightCameraBackground from "@/components/LightCameraBackground";
 const services = [
   {
     title: "Dış Çekim",
     desc: "Doğanın büyüsüyle bütünleşen, mekan ruhunu yansıtan profesyonel dış mekan çekimleri. Mezuniyet, portre ve konsept fotoğraflarınız için.",
-    image: "/ana sayfa/dışçk.png",
+    image: "/ana sayfa/dışresim.webp",
   },
   {
     title: "Düğün & Nişan",
     desc: "En özel gününüzü sinematik bir dille ölümsüzleştiriyoruz. Doğal, duygu dolu ve zarif kareler.",
-    image: "/ana sayfa/düğünçk.png",
+    image: "/ana sayfa/düğünresim.webp",
   },
   {
     title: "Reklam Çekimi",
     desc: "Markanızı öne çıkaran, satış odaklı ve yaratıcı reklam fotoğrafları. Ürün, katalog ve kampanya çekimleri.",
-    image: "/ana sayfa/reklamçk.png",
+    image: "/ana sayfa/reklamresim.webp",
   },
 ];
 
 /* ── Örnek Çekimler ── */
 const portfolioItems = [
   {
-    image: "/ana sayfa/anaport1.png",
-    title: "Elif Korkmaz",
-    subtitle: "Portre & Dış Çekim",
-    desc: "Doğal ışıkta, Trabzon'un en güzel köşelerinde gerçekleştirdiğimiz profesyonel portre çekimi.",
+    images: ["/ana sayfa/dışçk1.webp", "/ana sayfa/dışçk2.webp", "/ana sayfa/dışçk3.webp", "/ana sayfa/dışçk4.webp"],
+    title: "Dış Çekim",
+    subtitle: "Doğa & Portre Çekimi",
+    desc: "Trabzon'un eşsiz doğasında, altın saat ışığıyla buluşan profesyonel dış mekan çekimleri. Her karede doğallık ve estetik bir arada.",
   },
   {
-    image: "/ana sayfa/anaport2.png",
-    title: "KTÜ Mezuniyet Çekimi",
-    subtitle: "Üniversite Dış Çekim",
-    desc: "Karadeniz Teknik Üniversitesi kampüsünde, öğrencilerimiz için hazırladığımız konsept mezuniyet çekimi.",
+    images: ["/ana sayfa/düğünçk1.webp", "/ana sayfa/düğünçk2.webp", "/ana sayfa/düğünçk3.webp", "/ana sayfa/düğünçk4.webp"],
+    title: "Düğün Çekimi",
+    subtitle: "Düğün & Nişan Fotoğrafçılığı",
+    desc: "En özel gününüzü sinematik bir bakış açısıyla ölümsüzleştiriyoruz. Duygu dolu, zarif ve unutulmaz kareler.",
   },
   {
-    image: "/ana sayfa/anaport3.png",
-    title: "Horizon Mobilya",
-    subtitle: "Kurumsal Reklam Çekimi",
-    desc: "Horizon Mobilya markası için hazırladığımız ürün ve katalog çekimi projesi.",
+    images: ["/ana sayfa/reklamçk1.webp", "/ana sayfa/reklamçk2.webp", "/ana sayfa/reklamçk3.webp", "/ana sayfa/reklamçk4.webp"],
+    title: "Reklam Çekimi",
+    subtitle: "Kurumsal & Ürün Fotoğrafçılığı",
+    desc: "Markanızın hikayesini güçlü görseller ile anlatıyoruz. Ürün, katalog ve kampanya çekimlerinde profesyonel dokunuş.",
   },
 ];
 
@@ -54,8 +55,8 @@ const steps = [
   { step: "03", title: "Düzenleme & Teslimat", desc: "Profesyonel post-prodüksiyon ile mükemmelleştirilen görseller zamanında teslim edilir." },
 ];
 
-/* ── Instagram görselleri (1-5) ── */
-const INSTA_IMAGES = Array.from({ length: 5 }, (_, i) => `/Instagram/ınsta${i + 1}.webp`);
+/* ── Instagram görselleri (1-6) ── */
+const INSTA_IMAGES = Array.from({ length: 6 }, (_, i) => `/ana sayfa/ins${i + 1}.webp`);
 // Sonsuz döngü hissi için çoğaltıyoruz
 const FILM_IMAGES = [...INSTA_IMAGES, ...INSTA_IMAGES, ...INSTA_IMAGES];
 
@@ -64,7 +65,8 @@ const SHOOT_META = [
   { filter: "CINE-D", lens: "85MM F/1.4", location: "KTÜ KAMPÜS" },
   { filter: "MONOCHROME", lens: "35MM F/1.8", location: "STUDIO" },
   { filter: "VINTAGE COLD", lens: "24-70MM F/2.8", location: "MEYDAN" },
-  { filter: "WARM MATTE", lens: "50MM F/1.8", location: "PLATEAU" }
+  { filter: "WARM MATTE", lens: "50MM F/1.8", location: "PLATEAU" },
+  { filter: "SOFT LIGHT", lens: "70-200MM F/2.8", location: "BOZTEPE" },
 ];
 
 const AnaSayfa = () => {
@@ -131,239 +133,49 @@ const AnaSayfa = () => {
     <PageTransition>
       <Helmet>
         <title>Bluury Ajans — Trabzon'da Profesyonel Fotoğrafçılık ve Tasarım Hizmetleri</title>
-        <meta name="description" content="Bluury Ajans, Trabzon merkezli modern ve lüks fotoğrafçılık ajansıdır." />
+        <meta name="description" content="Bluury Ajans, Trabzon merkezli modern ve lüks fotoğrafçılık ajansıdır. Düğün, moda ve reklam çekimlerinde profesyonel hizmet." />
+        <meta property="og:title" content="Bluury Ajans — Trabzon'da Profesyonel Fotoğrafçılık" />
+        <meta property="og:description" content="Trabzon merkezli modern ve lüks fotoğrafçılık ajansı. Düğün, dış çekim ve moda fotoğrafçılığı." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://bluuryajans.com/" />
         <link rel="canonical" href="https://bluuryajans.com/" />
       </Helmet>
 
-      {/* Hero section */}
-      <Hero />
+      {/* Hero section + Overlapping Image Wrapper */}
+      <div className="relative">
+        <Hero />
+
+        {/* Gözde Çekim Kapağı — Videonun alt kenarında, yarısı videonun içinde */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-[45] px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.03, y: -5 }}
+            className="w-44 sm:w-56 md:w-68 lg:w-80 h-64 sm:h-80 md:h-[390px] lg:h-[460px] rounded-[1.5rem] shadow-[0_25px_60px_rgba(0,0,0,0.35)] overflow-hidden bg-[#FAFAF8] cursor-pointer ring-2 ring-white/10"
+          >
+            <img
+              src="/ana sayfa/gözdeçk.webp"
+              alt="Öne Çıkan Gözde Dış Çekim Fotoğrafı - Bluury Ajans"
+              fetchpriority="high"
+              decoding="async"
+              className="w-full h-full object-cover object-center select-none pointer-events-none"
+            />
+          </motion.div>
+        </div>
+      </div>
 
       {/* ═══════════════════════════════════════
           İÇERİK ALANI
       ═══════════════════════════════════════ */}
-      <div className="relative z-10 w-full bg-[#D6D6D6] overflow-hidden">
-        {/* Lüks Arka Plan Tasarımı: Çekim Stüdyosu Işıkları ve Altın Arayüz Çizgileri */}
-        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          {/* İnce Altın Eskiz / Arayüz Çizgileri */}
-          <div 
-            className="absolute inset-0 opacity-[0.08]" 
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, rgba(200, 164, 90, 0.3) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(200, 164, 90, 0.3) 1px, transparent 1px)
-              `,
-              backgroundSize: '100px 100px'
-            }}
-          />
+      <div className="relative z-40 w-full bg-[#D6D6D6] pt-36 sm:pt-44 md:pt-52 lg:pt-60">
 
-          {/* Düğün ve Çekim Ajansı Temalı Romantik Altın Işık Hüzmeleri (Soft Ambient Glows) */}
-          <div className="absolute top-[8%] left-[5%] w-[45vh] h-[45vh] bg-[#C8A45A]/[0.08] blur-[120px] rounded-full" />
-          <div className="absolute top-[35%] right-[8%] w-[55vh] h-[55vh] bg-white/[0.15] blur-[150px] rounded-full" />
-          <div className="absolute top-[65%] left-[10%] w-[50vh] h-[50vh] bg-[#C8A45A]/[0.07] blur-[130px] rounded-full" />
-
-          {/* 🎥 Sony Alpha Profesyonel Fotoğraf Makinesi Sembolik Vektör Çizimleri (Watermark Background) */}
-          {/* 1. Sol Üst Kenara Birleşik Sony Alpha Kamera */}
-          <div className="absolute top-[15%] left-[-110px] md:left-[-70px] rotate-[-10deg] transition-all duration-[1.2s] hover:rotate-[-5deg] hover:scale-105 hover:opacity-[0.08] opacity-[0.04]">
-            <svg viewBox="0 0 100 100" className="w-[300px] h-[300px] md:w-[420px] md:h-[420px] text-black">
-              {/* Camera Body Outer Shape */}
-              <rect x="10" y="28" width="80" height="52" rx="6" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Left Grip Texture */}
-              <path d="M 22 28 L 22 80" stroke="currentColor" strokeWidth="0.75" fill="none" strokeDasharray="1 2" />
-              {/* Viewfinder Prism */}
-              <path d="M 38 28 L 42 16 L 58 16 L 62 28 Z" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <text x="50" y="24" fontSize="5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" fill="currentColor">SONY</text>
-              {/* Top Dials */}
-              <rect x="18" y="23" width="10" height="5" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="68" y="21" width="12" height="7" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="81" y="24" width="7" height="4" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Hot Shoe */}
-              <rect x="46" y="13" width="8" height="3" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Distinctive Sony Alpha (α) Logo */}
-              <path d="M 78 36 C 76 36, 75 38, 75 40 C 75 42, 77 44, 79 44 C 81 44, 82 42, 82 40 C 82 37, 78 34, 76 34" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <text x="81" y="47" fontSize="4.5" fontWeight="bold" fontFamily="sans-serif" fill="currentColor">7S</text>
-              {/* Strap Eyelets */}
-              <rect x="7" y="38" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="90" y="38" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Circular Lens Assembly */}
-              <circle cx="50" cy="56" r="24" stroke="currentColor" strokeWidth="0.85" fill="none" />
-              <circle cx="50" cy="56" r="22.5" stroke="currentColor" strokeWidth="0.5" fill="none" strokeDasharray="1 1" />
-              <circle cx="50" cy="56" r="18" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <circle cx="50" cy="56" r="12" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <circle cx="50" cy="56" r="8" stroke="currentColor" strokeWidth="0.5" fill="none" />
-              {/* Lens Text */}
-              <text x="50" y="42" fontSize="2.2" fontFamily="monospace" textAnchor="middle" fill="currentColor">FE 2.8 / 16-35 GM</text>
-              <text x="50" y="72" fontSize="2" fontFamily="monospace" textAnchor="middle" fill="currentColor">Ø 82</text>
-              {/* Reflection */}
-              <path d="M 45 51 A 6 6 0 0 1 55 51" stroke="currentColor" strokeWidth="0.5" fill="none" strokeLinecap="round" />
-            </svg>
-          </div>
-
-          {/* 1.5. Sağ Üst Kenara Birleşik Sony Alpha Kamera (Çekim Hizmetlerinin Sağ Kenarına Dengeleme) */}
-          <div className="absolute top-[20%] right-[-110px] md:right-[-70px] rotate-[10deg] transition-all duration-[1.2s] hover:rotate-[5deg] hover:scale-105 hover:opacity-[0.08] opacity-[0.04]">
-            <svg viewBox="0 0 100 100" className="w-[300px] h-[300px] md:w-[420px] md:h-[420px] text-black">
-              {/* Camera Body Outer Shape */}
-              <rect x="10" y="28" width="80" height="52" rx="6" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Left Grip Texture */}
-              <path d="M 22 28 L 22 80" stroke="currentColor" strokeWidth="0.75" fill="none" strokeDasharray="1 2" />
-              {/* Viewfinder Prism */}
-              <path d="M 38 28 L 42 16 L 58 16 L 62 28 Z" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <text x="50" y="24" fontSize="5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" fill="currentColor">SONY</text>
-              {/* Top Dials */}
-              <rect x="18" y="23" width="10" height="5" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="68" y="21" width="12" height="7" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="81" y="24" width="7" height="4" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Hot Shoe */}
-              <rect x="46" y="13" width="8" height="3" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Distinctive Sony Alpha (α) Logo */}
-              <path d="M 78 36 C 76 36, 75 38, 75 40 C 75 42, 77 44, 79 44 C 81 44, 82 42, 82 40 C 82 37, 78 34, 76 34" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <text x="81" y="47" fontSize="4.5" fontWeight="bold" fontFamily="sans-serif" fill="currentColor">7S</text>
-              {/* Strap Eyelets */}
-              <rect x="7" y="38" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="90" y="38" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Circular Lens Assembly */}
-              <circle cx="50" cy="56" r="24" stroke="currentColor" strokeWidth="0.85" fill="none" />
-              <circle cx="50" cy="56" r="22.5" stroke="currentColor" strokeWidth="0.5" fill="none" strokeDasharray="1 1" />
-              <circle cx="50" cy="56" r="18" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <circle cx="50" cy="56" r="12" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <circle cx="50" cy="56" r="8" stroke="currentColor" strokeWidth="0.5" fill="none" />
-              {/* Lens Text */}
-              <text x="50" y="42" fontSize="2.2" fontFamily="monospace" textAnchor="middle" fill="currentColor">FE 2.8 / 16-35 GM</text>
-              <text x="50" y="72" fontSize="2" fontFamily="monospace" textAnchor="middle" fill="currentColor">Ø 82</text>
-              {/* Reflection */}
-              <path d="M 45 51 A 6 6 0 0 1 55 51" stroke="currentColor" strokeWidth="0.5" fill="none" strokeLinecap="round" />
-            </svg>
-          </div>
-
-          {/* 2. Sağ Orta Kenara Birleşik Sony Alpha Kamera */}
-          <div className="absolute top-[48%] right-[-110px] md:right-[-70px] rotate-[12deg] transition-all duration-[1.2s] hover:rotate-[6deg] hover:scale-105 hover:opacity-[0.08] opacity-[0.04]">
-            <svg viewBox="0 0 100 100" className="w-[300px] h-[300px] md:w-[420px] md:h-[420px] text-black">
-              {/* Camera Body Outer Shape */}
-              <rect x="10" y="28" width="80" height="52" rx="6" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Left Grip Texture */}
-              <path d="M 22 28 L 22 80" stroke="currentColor" strokeWidth="0.75" fill="none" strokeDasharray="1 2" />
-              {/* Viewfinder Prism */}
-              <path d="M 38 28 L 42 16 L 58 16 L 62 28 Z" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <text x="50" y="24" fontSize="5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" fill="currentColor">SONY</text>
-              {/* Top Dials */}
-              <rect x="18" y="23" width="10" height="5" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="68" y="21" width="12" height="7" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="81" y="24" width="7" height="4" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Hot Shoe */}
-              <rect x="46" y="13" width="8" height="3" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Distinctive Sony Alpha (α) Logo */}
-              <path d="M 78 36 C 76 36, 75 38, 75 40 C 75 42, 77 44, 79 44 C 81 44, 82 42, 82 40 C 82 37, 78 34, 76 34" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <text x="81" y="47" fontSize="4.5" fontWeight="bold" fontFamily="sans-serif" fill="currentColor">7S</text>
-              {/* Strap Eyelets */}
-              <rect x="7" y="38" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="90" y="38" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Circular Lens Assembly */}
-              <circle cx="50" cy="56" r="24" stroke="currentColor" strokeWidth="0.85" fill="none" />
-              <circle cx="50" cy="56" r="22.5" stroke="currentColor" strokeWidth="0.5" fill="none" strokeDasharray="1 1" />
-              <circle cx="50" cy="56" r="18" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <circle cx="50" cy="56" r="12" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <circle cx="50" cy="56" r="8" stroke="currentColor" strokeWidth="0.5" fill="none" />
-              {/* Lens Text */}
-              <text x="50" y="42" fontSize="2.2" fontFamily="monospace" textAnchor="middle" fill="currentColor">FE 2.8 / 16-35 GM</text>
-              <text x="50" y="72" fontSize="2" fontFamily="monospace" textAnchor="middle" fill="currentColor">Ø 82</text>
-              {/* Reflection */}
-              <path d="M 45 51 A 6 6 0 0 1 55 51" stroke="currentColor" strokeWidth="0.5" fill="none" strokeLinecap="round" />
-            </svg>
-          </div>
-
-          {/* 3. Sol Alt Kenara Birleşik Sony Alpha Kamera */}
-          <div className="absolute top-[78%] left-[-110px] md:left-[-70px] rotate-[8deg] transition-all duration-[1.2s] hover:rotate-[3deg] hover:scale-105 hover:opacity-[0.08] opacity-[0.04]">
-            <svg viewBox="0 0 100 100" className="w-[300px] h-[300px] md:w-[420px] md:h-[420px] text-black">
-              {/* Camera Body Outer Shape */}
-              <rect x="10" y="28" width="80" height="52" rx="6" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Left Grip Texture */}
-              <path d="M 22 28 L 22 80" stroke="currentColor" strokeWidth="0.75" fill="none" strokeDasharray="1 2" />
-              {/* Viewfinder Prism */}
-              <path d="M 38 28 L 42 16 L 58 16 L 62 28 Z" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <text x="50" y="24" fontSize="5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" fill="currentColor">SONY</text>
-              {/* Top Dials */}
-              <rect x="18" y="23" width="10" height="5" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="68" y="21" width="12" height="7" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="81" y="24" width="7" height="4" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Hot Shoe */}
-              <rect x="46" y="13" width="8" height="3" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Distinctive Sony Alpha (α) Logo */}
-              <path d="M 78 36 C 76 36, 75 38, 75 40 C 75 42, 77 44, 79 44 C 81 44, 82 42, 82 40 C 82 37, 78 34, 76 34" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <text x="81" y="47" fontSize="4.5" fontWeight="bold" fontFamily="sans-serif" fill="currentColor">7S</text>
-              {/* Strap Eyelets */}
-              <rect x="7" y="38" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <rect x="90" y="38" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              {/* Circular Lens Assembly */}
-              <circle cx="50" cy="56" r="24" stroke="currentColor" strokeWidth="0.85" fill="none" />
-              <circle cx="50" cy="56" r="22.5" stroke="currentColor" strokeWidth="0.5" fill="none" strokeDasharray="1 1" />
-              <circle cx="50" cy="56" r="18" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <circle cx="50" cy="56" r="12" stroke="currentColor" strokeWidth="0.75" fill="none" />
-              <circle cx="50" cy="56" r="8" stroke="currentColor" strokeWidth="0.5" fill="none" />
-              {/* Lens Text */}
-              <text x="50" y="42" fontSize="2.2" fontFamily="monospace" textAnchor="middle" fill="currentColor">FE 2.8 / 16-35 GM</text>
-              <text x="50" y="72" fontSize="2" fontFamily="monospace" textAnchor="middle" fill="currentColor">Ø 82</text>
-              {/* Reflection */}
-              <path d="M 45 51 A 6 6 0 0 1 55 51" stroke="currentColor" strokeWidth="0.5" fill="none" strokeLinecap="round" />
-            </svg>
-          </div>
-
-          {/* 📸 Kamera Kadrajı Vizör Detayları (Camera Viewfinder Overlay Watermarks) */}
-          {/* Köşe Kadraj Kılavuzları (Focus Corners) */}
-          <div className="absolute top-[3%] left-[3%] w-10 h-10 border-t-2 border-l-2 border-black/15 pointer-events-none" />
-          <div className="absolute top-[3%] right-[3%] w-10 h-10 border-t-2 border-r-2 border-black/15 pointer-events-none" />
-          <div className="absolute bottom-[3%] left-[3%] w-10 h-10 border-b-2 border-l-2 border-black/15 pointer-events-none" />
-          <div className="absolute bottom-[3%] right-[3%] w-10 h-10 border-b-2 border-r-2 border-black/15 pointer-events-none" />
-
-          {/* Autofocus Netleme Noktaları ve Artı İşaretleri */}
-          <div className="absolute top-[28%] left-[25%] text-black/15 font-light select-none pointer-events-none text-2xl select-none">+</div>
-          <div className="absolute top-[62%] right-[25%] text-black/15 font-light select-none pointer-events-none text-2xl select-none">+</div>
-          <div className="absolute top-[85%] left-[35%] text-black/15 font-light select-none pointer-events-none text-2xl select-none">+</div>
-          
-          {/* Merkez Vizör AF Çerçevesi */}
-          <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-dashed border-black/10 rounded-full flex items-center justify-center pointer-events-none select-none">
-            <span className="text-black/15 text-sm select-none">+</span>
-          </div>
-
-          {/* ✨ Romantik Altın Işık Tozları (Floating Gold Sparkles / Bokeh) */}
-          <div className="absolute top-[6%] left-[18%] w-1.5 h-1.5 bg-[#C8A45A]/25 rounded-full blur-[0.5px]" />
-          <div className="absolute top-[12%] right-[22%] w-2 h-2 bg-[#C8A45A]/20 rounded-full blur-[1px]" />
-          <div className="absolute top-[24%] left-[45%] w-1 h-1 bg-[#C8A45A]/30 rounded-full" />
-          <div className="absolute top-[35%] left-[12%] w-2.5 h-2.5 bg-[#C8A45A]/15 rounded-full blur-[1.5px]" />
-          <div className="absolute top-[42%] right-[35%] w-1.5 h-1.5 bg-[#C8A45A]/25 rounded-full" />
-          <div className="absolute top-[52%] left-[28%] w-2 h-2 bg-[#C8A45A]/20 rounded-full blur-[0.5px]" />
-          <div className="absolute top-[60%] right-[15%] w-1 h-1 bg-[#C8A45A]/35 rounded-full" />
-          <div className="absolute top-[68%] left-[40%] w-2 h-2 bg-[#C8A45A]/15 rounded-full blur-[1px]" />
-          <div className="absolute top-[75%] right-[45%] w-1.5 h-1.5 bg-[#C8A45A]/30 rounded-full" />
-          <div className="absolute top-[84%] left-[18%] w-2 h-2 bg-[#C8A45A]/20 rounded-full blur-[1px]" />
-          <div className="absolute top-[92%] right-[28%] w-1 h-1 bg-[#C8A45A]/30 rounded-full" />
-
-          {/* 📡 Vizör Teknik HUD Bilgileri (Soft Viewfinder Camera HUD Status Panels) */}
-          {/* Panel 1 - Üst Kısım */}
-          <div className="absolute top-[4%] left-[5%] right-[5%] flex justify-between font-mono text-[9px] tracking-widest text-black/10 select-none pointer-events-none uppercase">
-            <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 bg-red-500/30 rounded-full animate-pulse" />
-              <span>REC  4K 60fps</span>
-            </div>
-            <div><span>CH1 ━━━━ CH2 ━━━━</span></div>
-          </div>
-
-          {/* Panel 2 - Orta Kısım */}
-          <div className="absolute top-[45%] left-[5%] right-[5%] flex justify-between font-mono text-[9px] tracking-widest text-black/10 select-none pointer-events-none uppercase">
-            <div><span>F/2.8  1/125s  0.0ev</span></div>
-            <div><span>ISO 100  RAW 16bit</span></div>
-          </div>
-
-          {/* Panel 3 - Alt Kısım */}
-          <div className="absolute top-[85%] left-[5%] right-[5%] flex justify-between font-mono text-[9px] tracking-widest text-black/10 select-none pointer-events-none uppercase">
-            <div><span>HLG  M-FOCUS  AF-C</span></div>
-            <div className="flex items-center gap-2">
-              <span>BATT 98%</span>
-              <span className="px-1 border border-black/10 rounded-[2px] text-[7px] font-bold">███</span>
-            </div>
-          </div>
-        </div>
+        {/* Lüks Arka Plan Tasarımı */}
+        <LightCameraBackground />
 
         {/* ── HİZMETLERİMİZ ── */}
-        <section className="relative py-24 md:py-32">
+        <section className="relative py-16 md:py-28">
           <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -386,16 +198,17 @@ const AnaSayfa = () => {
                 >
                   <img
                     src={s.image}
-                    alt={s.title}
+                    alt={`${s.title} Fotoğraf Çekimi Hizmeti - Bluury Ajans`}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/70 to-transparent opacity-95 transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="absolute inset-0 p-8 flex flex-col justify-end">
                     <h3 className="font-heading text-2xl md:text-3xl text-[#C8A45A] group-hover:text-[#E5E5E5] transition-colors duration-500">
                       {s.title}
                     </h3>
-                    <p className="text-[#E5E5E5] text-sm font-medium leading-relaxed opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                    <p className="text-[#E5E5E5] text-sm font-medium leading-relaxed opacity-100 translate-y-0 md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500">
                       {s.desc}
                     </p>
                   </div>
@@ -406,7 +219,7 @@ const AnaSayfa = () => {
         </section>
 
         {/* ── ÖRNEK ÇEKİMLERİMİZ ── */}
-        <section className="relative py-24 md:py-32 border-t border-[#C8A45A]/10">
+        <section className="relative py-16 md:py-32 border-t border-[#C8A45A]/10">
           <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -417,7 +230,7 @@ const AnaSayfa = () => {
               <DecoratedHeading text="Örnek Çekimlerimiz" />
             </motion.h2>
 
-            <div className="space-y-16">
+            <div className="space-y-28">
               {portfolioItems.map((item, i) => (
                 <motion.div
                   key={i}
@@ -425,37 +238,78 @@ const AnaSayfa = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7 }}
-                  className={`flex flex-col ${
-                    i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  } gap-8 md:gap-12 items-center`}
+                  className="flex flex-col md:flex-row gap-12 md:gap-16 items-center"
                 >
-                  <div className="w-full md:w-1/2 relative group">
-                    <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-black/5 shadow-lg">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
+                  {/* Bilgi Paneli (Sol Tarafta) */}
+                  <div className="w-full md:w-2/5 space-y-6 bg-[#FAFAF8] p-8 md:p-12 rounded-3xl border border-black/5 shadow-[0_10px_40px_rgba(0,0,0,0.05)] hover:border-[#C8A45A]/40 transition-all duration-500 flex flex-col justify-center">
+                    <div className="space-y-2">
+                      <p className="text-[#C8A45A] text-xs font-semibold tracking-[0.25em] uppercase">
+                        {item.subtitle}
+                      </p>
+                      <h3 className="font-heading text-3xl md:text-4xl text-[#1A1A1A] tracking-wide leading-tight">
+                        {item.title}
+                      </h3>
+                    </div>
+                    <p className="text-[#555555] text-base font-light leading-relaxed">
+                      {item.desc}
+                    </p>
+                    <div className="pt-2">
+                      <Link
+                        to="/portfolyo"
+                        className="inline-block px-8 py-3.5 min-h-[48px] flex items-center justify-center border border-[#C8A45A]/40 rounded-full text-[#C8A45A] text-xs font-semibold tracking-widest uppercase hover:bg-[#C8A45A]/10 hover:border-[#C8A45A]/70 transition-all duration-500 no-underline active:scale-95"
+                      >
+                        Detayları Gör
+                      </Link>
                     </div>
                   </div>
 
-                  <div className="w-full md:w-1/2 space-y-4 bg-[#1A1A1A] p-6 md:p-10 rounded-2xl border border-[#C8A45A]/20 shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_30px_rgba(200,164,90,0.15)] transition-all">
-                    <p className="text-[#C8A45A] text-xs font-semibold tracking-[0.2em] uppercase">
-                      {item.subtitle}
-                    </p>
-                    <h3 className="font-heading text-3xl md:text-4xl text-[#E5E5E5]">
-                      {item.title}
-                    </h3>
-                    <p className="text-[#A0A0A0] text-base font-light leading-relaxed">
-                      {item.desc}
-                    </p>
-                    <Link
-                      to="/portfolyo"
-                      className="inline-block mt-4 px-8 py-3 border border-[#C8A45A]/40 rounded-full text-[#C8A45A] text-xs font-semibold tracking-widest uppercase hover:bg-[#C8A45A]/10 hover:border-[#C8A45A]/70 transition-all duration-500 no-underline"
-                    >
-                      Detayları Gör
-                    </Link>
+                  {/* Lüks Albüm Kolajı (Sağ Tarafta) */}
+                  <div className="w-full md:w-3/5 relative h-[450px] sm:h-[520px] md:h-[560px] lg:h-[600px] select-none">
+                    
+                    {/* 1. Ana Büyük Fotoğraf (Hafif Sol-Ortada, Sol Yatık) */}
+                    <div className="absolute top-[10%] left-[8%] w-[52%] h-[75%] z-20 rounded-2xl shadow-[0_20px_45px_rgba(0,0,0,0.3)] border border-white/10 overflow-hidden transform -rotate-2 hover:rotate-0 hover:scale-105 hover:z-40 hover:border-[#C8A45A] hover:shadow-[0_20px_40px_rgba(200,164,90,0.3)] transition-all duration-500 bg-[#222]">
+                      <img
+                        src={item.images[0]}
+                        alt={`${item.title} Portfolyo Ana Görseli - Bluury Ajans`}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+
+                    {/* 2. Sağ Üst Detay Fotoğrafı (Sağ Yatık) */}
+                    <div className="absolute top-[5%] right-[5%] w-[36%] h-[38%] z-10 rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.25)] border border-white/10 overflow-hidden transform rotate-3 hover:rotate-0 hover:scale-105 hover:z-40 hover:border-[#C8A45A] hover:shadow-[0_20px_40px_rgba(200,164,90,0.3)] transition-all duration-500 bg-[#222]">
+                      <img
+                        src={item.images[1]}
+                        alt={`${item.title} Detay Görseli 1 - Bluury Ajans`}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+
+                    {/* 3. Sağ Alt Detay Fotoğrafı (Sol Yatık) */}
+                    <div className="absolute bottom-[8%] right-[8%] w-[34%] h-[38%] z-30 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.3)] border border-white/10 overflow-hidden transform -rotate-3 hover:rotate-0 hover:scale-105 hover:z-40 hover:border-[#C8A45A] hover:shadow-[0_20px_40px_rgba(200,164,90,0.3)] transition-all duration-500 bg-[#222]">
+                      <img
+                        src={item.images[2]}
+                        alt={`${item.title} Detay Görseli 2 - Bluury Ajans`}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+
+                    {/* 4. Sol Alt Detay Fotoğrafı - Overlapping / Siyah-Beyaz Başlayan (Sağ Yatık) */}
+                    <div className="absolute bottom-[5%] left-[2%] w-[30%] h-[35%] z-30 rounded-2xl shadow-[0_20px_35px_rgba(0,0,0,0.3)] border border-white/10 overflow-hidden transform rotate-2 hover:rotate-0 hover:scale-105 hover:z-40 hover:border-[#C8A45A] hover:shadow-[0_20px_40px_rgba(200,164,90,0.3)] transition-all duration-500 bg-[#222] md:grayscale md:hover:grayscale-0">
+                      <img
+                        src={item.images[3]}
+                        alt={`${item.title} Detay Görseli 3 - Bluury Ajans`}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+
                   </div>
                 </motion.div>
               ))}
@@ -464,7 +318,7 @@ const AnaSayfa = () => {
         </section>
 
         {/* ── ÇALIŞMA SÜRECİMİZ ── */}
-        <section className="relative py-24 md:py-32">
+        <section className="relative py-16 md:py-32">
           <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -483,16 +337,16 @@ const AnaSayfa = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.15 }}
-                  className="text-center relative group p-6 rounded-2xl bg-[#1A1A1A] border border-[#C8A45A]/20 hover:border-[#C8A45A]/50 transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_30px_rgba(200,164,90,0.15)]"
+                  className="text-center relative group p-6 rounded-2xl bg-[#FAFAF8] border border-black/5 hover:border-[#C8A45A]/40 transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(200,164,90,0.1)]"
                 >
                   {i !== steps.length - 1 && (
                     <div className="hidden md:block absolute top-14 left-[75%] w-full h-[1px] bg-gradient-to-r from-[#C8A45A]/20 to-transparent z-0 pointer-events-none" />
                   )}
-                  <div className="relative z-10 w-20 h-20 mx-auto border border-[#C8A45A]/40 rounded-full flex items-center justify-center text-2xl text-[#C8A45A] mb-6 group-hover:border-[#C8A45A] group-hover:bg-[#2A2A2A] group-hover:shadow-[0_4px_15px_rgba(200,164,90,0.15)] transition-all duration-500 font-heading">
+                  <div className="relative z-10 w-20 h-20 mx-auto border border-[#C8A45A]/40 rounded-full flex items-center justify-center text-2xl text-[#C8A45A] mb-6 group-hover:border-[#C8A45A] group-hover:bg-[#FAFAF8] group-hover:shadow-[0_4px_15px_rgba(200,164,90,0.15)] transition-all duration-500 font-heading">
                     {s.step}
                   </div>
-                  <h3 className="font-heading text-xl text-[#E5E5E5] mb-3">{s.title}</h3>
-                  <p className="text-[#A0A0A0] text-sm font-light leading-relaxed">{s.desc}</p>
+                  <h3 className="font-heading text-xl text-[#1A1A1A] mb-3">{s.title}</h3>
+                  <p className="text-[#555555] text-sm font-light leading-relaxed">{s.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -500,7 +354,7 @@ const AnaSayfa = () => {
         </section>
 
         {/* ── INSTAGRAM — SİNAMATİK FOCUS AKIŞI ── */}
-        <section className="relative py-24 md:py-32 overflow-hidden bg-[#CECECE] border-t border-[#C8A45A]/10">
+        <section className="relative py-16 md:py-32 overflow-hidden bg-[#CECECE] border-t border-[#C8A45A]/10">
           {/* Arka Planda Çok Düşük Opaklıklı Altın Işıklar */}
           <div className="absolute inset-0 pointer-events-none z-0">
             <div className="absolute top-1/2 left-[20%] w-[40%] h-[60%] bg-[#C8A45A]/[0.05] blur-[150px] rounded-full -translate-y-1/2" />
@@ -544,15 +398,15 @@ const AnaSayfa = () => {
                   <div
                     key={index}
                     onClick={() => openModal(src)}
-                    className="insta-focus-card relative w-[300px] md:w-[420px] h-[380px] md:h-[500px] flex-shrink-0 bg-[#1A1A1A] rounded-[2rem] border border-[#C8A45A]/20 shadow-[0_4px_30px_rgba(0,0,0,0.1)] group/item p-5 flex flex-col cursor-pointer transition-all duration-500 will-change-transform"
+                    className="insta-focus-card relative w-[260px] md:w-[420px] h-[340px] md:h-[500px] flex-shrink-0 bg-[#FAFAF8] rounded-[2rem] border border-black/5 shadow-[0_4px_30px_rgba(0,0,0,0.05)] group/item p-4 md:p-5 flex flex-col cursor-pointer transition-all duration-500 will-change-transform"
                     // Hover states defined cleanly to override JS inline styles
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transition = 'all 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
                       e.currentTarget.style.transform = 'scale(1.05)';
                       e.currentTarget.style.filter = 'blur(0px) brightness(1.1)';
                       e.currentTarget.style.opacity = '1';
-                      e.currentTarget.style.borderColor = 'rgba(200, 164, 90, 0.6)';
-                      e.currentTarget.style.boxShadow = '0 10px 40px rgba(200, 164, 90, 0.25)';
+                      e.currentTarget.style.borderColor = 'rgba(200, 164, 90, 0.4)';
+                      e.currentTarget.style.boxShadow = '0 10px 40px rgba(200, 164, 90, 0.15)';
                       e.currentTarget.style.zIndex = '30';
                     }}
                     onMouseLeave={(e) => {
@@ -567,21 +421,22 @@ const AnaSayfa = () => {
                       }, 500);
                     }}
                   >
-                    <div className="flex justify-between items-center mb-4 border border-white/5 bg-[#2A2A2A] rounded-full px-4 py-2 transition-opacity duration-500 opacity-50 group-hover/item:opacity-100">
-                      <span className="text-[#C8A45A] text-[10px] tracking-[0.2em] font-mono uppercase font-bold">{meta.filter}</span>
-                      <span className="text-[#A0A0A0] text-[10px] tracking-[0.2em] font-mono">{meta.lens}</span>
+                    <div className="flex justify-between items-center mb-3 md:mb-4 border border-black/5 bg-white/60 rounded-full px-3 py-1.5 md:px-4 md:py-2 transition-opacity duration-500 opacity-60 group-hover/item:opacity-100">
+                      <span className="text-[#C8A45A] text-[9px] md:text-[10px] tracking-[0.2em] font-mono uppercase font-bold">{meta.filter}</span>
+                      <span className="text-[#555555] text-[9px] md:text-[10px] tracking-[0.2em] font-mono">{meta.lens}</span>
                     </div>
                     
                     {/* Fotoğraf Alanı */}
                     <div className="relative flex-grow rounded-2xl overflow-hidden bg-black">
                       <img
                         src={src}
-                        alt="Instagram Shoot"
+                        alt={`Instagram Çekim Portfolyosu ${index + 1} - Bluury Ajans`}
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover transition-transform duration-1000 group-hover/item:scale-110"
                       />
-                      {/* Konum overlay detayı */}
-                      <div className="absolute bottom-4 left-4 border border-white/10 bg-[#1A1A1A]/95 backdrop-blur-md rounded-full px-3 py-1 text-[10px] text-[#E5E5E5] tracking-widest font-mono uppercase z-10 transition-opacity duration-500 opacity-0 group-hover/item:opacity-100 shadow-sm">
+                      {/* Konum overlay detayı — Mobilde her zaman görünür, masastünde hover ile */}
+                      <div className="absolute bottom-4 left-4 border border-white/10 bg-[#1A1A1A]/95 backdrop-blur-md rounded-full px-3 py-1 text-[10px] text-[#E5E5E5] tracking-widest font-mono uppercase z-10 transition-opacity duration-500 opacity-100 md:opacity-0 md:group-hover/item:opacity-100 shadow-sm">
                         {meta.location}
                       </div>
                     </div>
@@ -598,7 +453,7 @@ const AnaSayfa = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram hesabımızı takip edin"
-              className="group inline-flex items-center gap-3 px-10 py-4 bg-[#C8A45A] border-2 border-white rounded-full text-black text-sm font-bold tracking-widest uppercase hover:bg-[#D4B76A] hover:scale-105 transition-all duration-500 no-underline shadow-lg hover:shadow-xl cursor-pointer"
+              className="group inline-flex items-center gap-3 px-8 md:px-10 py-4 min-h-[52px] bg-[#C8A45A] border-2 border-white rounded-full text-black text-xs md:text-sm font-bold tracking-widest uppercase hover:bg-[#D4B76A] hover:scale-105 active:scale-95 transition-all duration-500 no-underline shadow-lg hover:shadow-xl cursor-pointer"
             >
               <Instagram size={18} className="text-black group-hover:rotate-6 transition-transform duration-500" />
               Takip Et
@@ -607,7 +462,7 @@ const AnaSayfa = () => {
         </section>
 
         {/* ── ÇEKİMİ BAŞLAT CTA ── */}
-        <section className="py-20 md:py-28 text-center relative z-10 bg-[#CECECE] border-t border-[#C8A45A]/10">
+        <section className="py-16 md:py-28 text-center relative z-10 bg-[#CECECE] border-t border-[#C8A45A]/10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             whileInView={{ opacity: 1, y: 0 }} 
@@ -627,7 +482,7 @@ const AnaSayfa = () => {
             <button 
               onClick={() => window.open("https://wa.me/905364965698", "_blank", "noopener,noreferrer")}
               aria-label="WhatsApp üzerinden çekimi planlamak için iletişime geçin"
-              className="group inline-flex items-center gap-3 px-10 py-4 bg-[#C8A45A] border-2 border-white rounded-full text-black text-sm font-bold tracking-widest uppercase hover:bg-[#D4B76A] hover:scale-105 transition-all duration-500 no-underline shadow-lg hover:shadow-xl cursor-pointer"
+              className="group inline-flex items-center gap-3 px-8 md:px-10 py-4 min-h-[52px] bg-[#C8A45A] border-2 border-white rounded-full text-black text-xs md:text-sm font-bold tracking-widest uppercase hover:bg-[#D4B76A] hover:scale-105 active:scale-95 transition-all duration-500 no-underline shadow-lg hover:shadow-xl cursor-pointer"
             >
               WhatsApp ile İletişime Geç
             </button>

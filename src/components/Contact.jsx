@@ -71,7 +71,7 @@ const Contact = () => {
                   <div>
                     <h4 className="text-xs font-bold text-black uppercase tracking-wider mb-1">{item.title}</h4>
                     {item.link ? (
-                      <a href={item.link} className="text-[#555555] hover:text-[#C8A45A] text-sm font-semibold leading-relaxed whitespace-pre-line no-underline transition-colors">{item.info}</a>
+                      <a href={item.link} aria-label={`${item.title}: ${item.info}`} className="text-[#555555] hover:text-[#C8A45A] text-sm font-semibold leading-relaxed whitespace-pre-line no-underline transition-colors min-h-[44px] flex items-center">{item.info}</a>
                     ) : (
                       <p className="text-[#555555] text-sm font-semibold leading-relaxed whitespace-pre-line">{item.info}</p>
                     )}
@@ -81,7 +81,7 @@ const Contact = () => {
               
               {/* WhatsApp Butonu — Ana Sayfayla Uyumlu Altın Buton */}
               <button onClick={openWhatsApp}
-                className="w-full mt-4 py-3.5 rounded-full text-white bg-[#C8A45A] hover:bg-[#D4B76A] hover:scale-[1.02] transition-all duration-500 flex items-center justify-center gap-2 cursor-pointer border-none font-heading font-bold text-sm tracking-widest uppercase shadow-[0_10px_20px_rgba(200,164,90,0.25)]">
+                className="w-full mt-4 py-3.5 min-h-[48px] rounded-full text-white bg-[#C8A45A] hover:bg-[#D4B76A] hover:scale-[1.02] active:scale-95 transition-all duration-500 flex items-center justify-center gap-2 cursor-pointer border-none font-bold text-sm tracking-widest uppercase shadow-[0_10px_20px_rgba(200,164,90,0.25)]">
                 <MessageCircle size={18} /> WhatsApp ile İletişime Geçin
               </button>
             </div>
@@ -117,25 +117,25 @@ const Contact = () => {
               <div>
                 <label className="block text-xs font-bold text-black mb-2 tracking-wider uppercase">Adınız Soyadınız</label>
                 <input type="text" name="name" value={formData.name} onChange={handleChange} required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/70 border border-black/15 text-black placeholder-black/35 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A] transition-all text-sm font-semibold shadow-sm"
+                  className="w-full px-4 py-3.5 rounded-xl bg-white/70 border border-black/15 text-black placeholder-black/35 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A] transition-all text-base md:text-sm font-semibold shadow-sm"
                   placeholder="Örn: Ahmet Yılmaz" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-black mb-2 tracking-wider uppercase">E-Posta Adresiniz</label>
                 <input type="email" name="email" value={formData.email} onChange={handleChange} required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/70 border border-black/15 text-black placeholder-black/35 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A] transition-all text-sm font-semibold shadow-sm"
+                  className="w-full px-4 py-3.5 rounded-xl bg-white/70 border border-black/15 text-black placeholder-black/35 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A] transition-all text-base md:text-sm font-semibold shadow-sm"
                   placeholder="Örn: ahmet@example.com" />
               </div>
               <div className="flex-grow">
                 <label className="block text-xs font-bold text-black mb-2 tracking-wider uppercase">Mesajınız</label>
                 <textarea name="message" value={formData.message} onChange={handleChange} required
-                  className="w-full h-[150px] px-4 py-3.5 rounded-xl bg-white/70 border border-black/15 text-black placeholder-black/35 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A] transition-all resize-none text-sm font-semibold shadow-sm"
+                  className="w-full h-[150px] px-4 py-3.5 rounded-xl bg-white/70 border border-black/15 text-black placeholder-black/35 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A] transition-all resize-none text-base md:text-sm font-semibold shadow-sm"
                   placeholder="Projeniz hakkında bize bilgi verin..." />
               </div>
               
               {/* Gönder Butonu — Ana Sayfayla Uyumlu Altın Buton */}
               <button type="submit"
-                className="w-full py-4 rounded-full text-white bg-[#C8A45A] hover:bg-[#D4B76A] hover:scale-[1.02] transition-all duration-500 flex items-center justify-center gap-2 mt-auto cursor-pointer border-none font-heading font-bold text-sm tracking-widest uppercase shadow-[0_10px_20px_rgba(200,164,90,0.25)]">
+                className="w-full py-4 min-h-[48px] rounded-full text-white bg-[#C8A45A] hover:bg-[#D4B76A] hover:scale-[1.02] active:scale-95 transition-all duration-500 flex items-center justify-center gap-2 mt-auto cursor-pointer border-none font-bold text-sm tracking-widest uppercase shadow-[0_10px_20px_rgba(200,164,90,0.25)]">
                 <Send size={16} /> Gönder
               </button>
             </form>

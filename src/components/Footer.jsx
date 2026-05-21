@@ -32,7 +32,11 @@ const Footer = () => {
               <Link to="/" className="no-underline inline-block mb-4">
                 <img
                   src="/ana sayfa/logo.webp"
-                  alt="Blurry Ajans Logo"
+                  alt="Bluury Ajans Profesyonel Fotoğrafçılık Logosu"
+                  width="160"
+                  height="64"
+                  loading="lazy"
+                  decoding="async"
                   className="h-16 w-auto object-contain transition-transform duration-500 hover:scale-105"
                 />
               </Link>
@@ -42,15 +46,15 @@ const Footer = () => {
               
               <div className="flex flex-col gap-3">
                 <a href="https://www.instagram.com/blurry_ajans" target="_blank" rel="noopener noreferrer"
-                  aria-label="Blurry Ajans Instagram profilini yeni sekmede ziyaret edin"
-                  className="inline-flex items-center gap-2 text-[#777777] hover:text-[#C8A45A] transition-colors duration-300 no-underline w-fit">
+                  aria-label="Bluury Ajans Instagram profilini yeni sekmede ziyaret edin"
+                  className="inline-flex items-center gap-2 min-h-[44px] text-[#777777] hover:text-[#C8A45A] transition-colors duration-300 no-underline w-fit">
                   <Instagram size={24} />
                   <span className="text-xs font-light font-sans tracking-widest text-[#555555] hover:text-[#C8A45A] uppercase">Instagram</span>
                 </a>
                 
                 <a href="https://wa.me/905364965698" target="_blank" rel="noopener noreferrer"
-                  aria-label="Blurry Ajans ile WhatsApp üzerinden yeni sekmede anında iletişime geçin"
-                  className="inline-flex items-center gap-2 text-[#777777] hover:text-[#C8A45A] transition-colors duration-300 no-underline w-fit">
+                  aria-label="Bluury Ajans ile WhatsApp üzerinden iletişime geçin"
+                  className="inline-flex items-center gap-2 min-h-[44px] text-[#777777] hover:text-[#C8A45A] transition-colors duration-300 no-underline w-fit">
                   <MessageCircle size={24} className="text-[#C8A45A]" />
                   <span className="text-xs font-light font-sans tracking-widest text-[#555555] hover:text-[#C8A45A] uppercase">WhatsApp</span>
                 </a>
@@ -59,10 +63,10 @@ const Footer = () => {
 
             <div>
               <h4 className="text-lg font-medium text-[#E5E5E5] uppercase tracking-widest mb-6 font-heading">Keşfet</h4>
-              <nav className="flex flex-col gap-4">
+              <nav aria-label="Footer navigasyon menüsü" className="flex flex-col gap-4">
                 {navLinks.map((link) => (
                   <Link key={link.to} to={link.to}
-                    className="text-[#777777] hover:text-[#C8A45A] text-sm font-light tracking-wide transition-colors duration-300 no-underline font-sans">
+                    className="text-[#777777] hover:text-[#C8A45A] text-sm font-light tracking-wide transition-colors duration-300 no-underline font-sans min-h-[44px] flex items-center">
                     {link.label}
                   </Link>
                 ))}
@@ -96,7 +100,7 @@ const Footer = () => {
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-[#999999] font-light tracking-widest uppercase font-sans">
-              © {currentYear} Blurry Ajans. Tüm hakları saklıdır.
+              © {currentYear} Bluury Ajans. Tüm hakları saklıdır.
             </p>
             <button onClick={() => setShowKVKK(true)}
               className="text-xs text-[#999999] font-light tracking-widest uppercase hover:text-[#C8A45A] transition-colors cursor-pointer bg-transparent border-none font-sans">

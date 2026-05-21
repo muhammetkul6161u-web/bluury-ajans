@@ -64,10 +64,10 @@ const SplashScreen = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="flex items-center justify-center gap-2.5 mb-8 font-heading text-3xl md:text-5xl select-none"
         >
-          <span className="text-[#C8A45A] tracking-[0.08em] font-bold">
+          <span className="text-[#C8A45A] tracking-[0.08em]">
             Blurry
           </span>
-          <span className="text-[#333333] tracking-[0.08em] font-bold">
+          <span className="text-[#555555] tracking-[0.08em]">
             Ajans
           </span>
         </motion.div>

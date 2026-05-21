@@ -8,19 +8,19 @@ const REVIEWS = [
     id: 1,
     name: "sayinsumeyyes",
     comment: "Film gibi olmuş, harika bir çekim deneyimi yaşadık!",
-    video: "/Referans/Referans1.mp4",
+    video: "/Referans/referans1.mov",
   },
   {
     id: 2,
     name: "seyma.eeroll",
     comment: "Çok güzel, beklentilerimizin çok ötesinde bir sonuç oldu.",
-    video: "/Referans/Referans2.mp4",
+    video: "/Referans/referans2.mp4",
   },
   {
     id: 3,
     name: "_sevvalaktass",
     comment: "Hayallerimden daha güzel bir çekim oldu, çok teşekkürler!",
-    video: "/Referans/Referans3.mp4",
+    video: "/Referans/referans3.mp4",
   },
 ];
 
@@ -69,6 +69,10 @@ const Testimonials = () => {
                 muted
                 loop
                 playsInline
+                webkit-playsinline="true"
+                disablePictureInPicture
+                disableRemotePlayback
+                controlsList="nodownload nofullscreen noremoteplayback"
                 controls={false}
                 preload="metadata"
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[6s] ease-out pointer-events-none opacity-80 group-hover:opacity-100"
@@ -78,13 +82,13 @@ const Testimonials = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/15 group-hover:from-black/90 transition-all duration-500" />
 
               {/* Vizör Köşe Kılavuzları (Sony Alpha Konseptiyle Bütünleşik) */}
-              <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-white/30 pointer-events-none group-hover:border-[#C8A45A]/60 transition-colors duration-500" />
-              <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-white/30 pointer-events-none group-hover:border-[#C8A45A]/60 transition-colors duration-500" />
-              <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-white/30 pointer-events-none group-hover:border-[#C8A45A]/60 transition-colors duration-500" />
-              <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-white/30 pointer-events-none group-hover:border-[#C8A45A]/60 transition-colors duration-500" />
+              <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-[#C8A45A]/60 md:border-white/30 pointer-events-none md:group-hover:border-[#C8A45A]/60 transition-colors duration-500" />
+              <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-[#C8A45A]/60 md:border-white/30 pointer-events-none md:group-hover:border-[#C8A45A]/60 transition-colors duration-500" />
+              <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-[#C8A45A]/60 md:border-white/30 pointer-events-none md:group-hover:border-[#C8A45A]/60 transition-colors duration-500" />
+              <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-[#C8A45A]/60 md:border-white/30 pointer-events-none md:group-hover:border-[#C8A45A]/60 transition-colors duration-500" />
 
               {/* Sol Üst Canlı Kayıt Efekti */}
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 opacity-40 group-hover:opacity-100 transition-opacity">
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 opacity-100 md:opacity-40 md:group-hover:opacity-100 transition-opacity">
                 <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
                 <span className="text-[8px] font-mono tracking-widest text-white uppercase">LIVE</span>
               </div>
@@ -98,12 +102,9 @@ const Testimonials = () => {
 
               {/* Alttaki Yorum ve Kullanıcı Paneli */}
               <div className="absolute bottom-0 left-0 right-0 p-6 z-10 text-center flex flex-col justify-end min-h-[140px] bg-gradient-to-t from-black via-black/85 to-transparent">
-                <p className="text-sm md:text-base text-white/90 font-light leading-relaxed mb-3 italic">
+                <p className="text-sm md:text-base text-white/90 font-light leading-relaxed italic">
                   "{review.comment}"
                 </p>
-                <h4 className="text-[11px] tracking-widest uppercase text-[#C8A45A] font-bold">
-                  @{review.name}
-                </h4>
               </div>
             </motion.div>
           ))}
