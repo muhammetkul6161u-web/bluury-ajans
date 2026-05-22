@@ -24,6 +24,11 @@ const services = [
     desc: "Markanızı öne çıkaran, satış odaklı ve yaratıcı reklam fotoğrafları. Ürün, katalog ve kampanya çekimleri.",
     image: "/ana sayfa/reklamresim.webp",
   },
+  {
+    title: "After Çekimi",
+    desc: "Düğün ve etkinliklerinizin ardından devam eden eğlenceyi, en enerjik ve doğal anlarıyla yakalayarak ölümsüzleştiriyoruz.",
+    image: "/hizmetler/afterparti.webp",
+  },
 ];
 
 /* ── Örnek Çekimler ── */
@@ -55,8 +60,8 @@ const steps = [
   { step: "03", title: "Düzenleme & Teslimat", desc: "Profesyonel post-prodüksiyon ile mükemmelleştirilen görseller zamanında teslim edilir." },
 ];
 
-/* ── Instagram görselleri (1-6) ── */
-const INSTA_IMAGES = Array.from({ length: 6 }, (_, i) => `/ana sayfa/ins${i + 1}.webp`);
+/* ── Instagram görselleri (1-7) ── */
+const INSTA_IMAGES = Array.from({ length: 7 }, (_, i) => `/ana sayfa/ins${i + 1}.webp`);
 // Sonsuz döngü hissi için çoğaltıyoruz
 const FILM_IMAGES = [...INSTA_IMAGES, ...INSTA_IMAGES, ...INSTA_IMAGES];
 
@@ -67,6 +72,7 @@ const SHOOT_META = [
   { filter: "VINTAGE COLD", lens: "24-70MM F/2.8", location: "MEYDAN" },
   { filter: "WARM MATTE", lens: "50MM F/1.8", location: "PLATEAU" },
   { filter: "SOFT LIGHT", lens: "70-200MM F/2.8", location: "BOZTEPE" },
+  { filter: "NIGHT VIBES", lens: "35MM F/1.4", location: "AFTER PARTY" },
 ];
 
 const AnaSayfa = () => {
@@ -186,7 +192,7 @@ const AnaSayfa = () => {
               <DecoratedHeading text="Çekim Hizmetlerimiz" />
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
               {services.map((s, i) => (
                 <motion.div
                   key={i}

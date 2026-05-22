@@ -51,7 +51,7 @@ const Hakkimizda = () => {
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 transition={{ delay: 0.3 }} className="space-y-4 md:space-y-6 bg-[#FAFAF8] backdrop-blur-md p-6 md:p-12 rounded-2xl border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
                 <p className="text-[#1A1A1A] text-sm md:text-lg font-light leading-relaxed">
-                  Bluury Ajans, Trabzon'un kalbinde doğan bir fotoğrafçılık tutkusunun hikâyesidir. Bir kamera ve sonsuz bir hayal gücüyle başlayan yolculuğumuz, bugün profesyonel ekibimiz ve modern stüdyomuzla devam ediyor.
+                  Blurry Ajans, Trabzon'un kalbinde doğan bir fotoğrafçılık tutkusunun hikâyesidir. Bir kamera ve sonsuz bir hayal gücüyle başlayan yolculuğumuz, bugün profesyonel ekibimiz ve modern stüdyomuzla devam ediyor.
                 </p>
                 <p className="text-[#1A1A1A] text-sm md:text-lg font-light leading-relaxed">
                   Her projemizde müşterilerimizin vizyonunu anlıyor, onların hikâyelerini en etkileyici şekilde karelere yansıtıyoruz. Düğün çekimlerinden moda projelerine, ürün fotoğraflarından kurumsal çalışmalara kadar geniş bir yelpazede hizmet veriyoruz.

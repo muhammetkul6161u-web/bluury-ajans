@@ -32,6 +32,13 @@ const Services = () => {
         "Markanızın vizyonunu, kimliğini ve gücünü en etkileyici ve dikkat çekici görsel dille anlatan kurumsal reklam çekimleri yapıyoruz.",
       image: "/hizmetler/reklamhz.webp",
     },
+    {
+      id: 5,
+      title: "After Çekimi",
+      description:
+        "Düğün ve etkinliklerinizin ardından devam eden eğlenceyi, en enerjik ve doğal anlarıyla yakalayarak ölümsüzleştiriyoruz.",
+      image: "/hizmetler/afterparti.webp",
+    },
   ];
 
   return (
@@ -57,7 +64,7 @@ const Services = () => {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
           {services.map((service, index) => (
             <motion.div
               key={service.id}

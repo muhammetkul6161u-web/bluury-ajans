@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Instagram, Heart, MessageCircle } from "lucide-react";
 import InstagramModal from "./InstagramModal";
 
-const IMAGES = Array.from({ length: 6 }, (_, i) => `/Instagram/ınsta${i + 1}.webp`);
+const IMAGES = Array.from({ length: 7 }, (_, i) => `/ana sayfa/ins${i + 1}.webp`);
 const SCROLL_IMAGES = [...IMAGES, ...IMAGES, ...IMAGES];
 
 const InstagramFeed = () => {
