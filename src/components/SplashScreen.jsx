@@ -89,7 +89,7 @@ const SplashScreen = () => {
           transition={{ delay: 1.1 }}
           className="mt-6 text-black/45 text-[10px] tracking-[0.35em] uppercase font-bold font-mono"
         >
-          Kadraj Hazır
+          Blurry Ajansa Hoşgeldiniz
         </motion.p>
       </div>
     </motion.div>
