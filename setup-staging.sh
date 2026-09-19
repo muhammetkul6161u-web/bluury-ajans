@@ -11,33 +11,22 @@ cd /var/www/bluuryajans-staging
 git checkout staging 2>/dev/null || git checkout -b staging
 git pull origin staging 2>/dev/null || true
 
-echo "⚙️ [2/6] Staging Backend ve Veritabanı Yapılandırılıyor..."
+echo "⚙️ [2/6] MySQL Kullanıcısı ve Staging Veritabanı Yapılandırılıyor..."
 mkdir -p backend/uploads
 
-PROD_ENV="/var/www/bluuryajans.com/backend/.env"
-if [ -f "$PROD_ENV" ]; then
-    # Sadece yorum olmayan gerçek DATABASE_URL satırını al
-    DB_URL=$(grep -E '^[[:space:]]*DATABASE_URL[[:space:]]*=' "$PROD_ENV" | tail -n 1 | cut -d '=' -f2- | tr -d '"' | tr -d "'" | sed 's/bluury_db/bluury_staging_db/g')
-else
-    DB_URL="mysql://root:123456@localhost:3306/bluury_staging_db"
-fi
+# Ubuntu MySQL için garantili bluury_user kullanıcısı ve veritabanı oluştur
+sudo mysql -e "CREATE DATABASE IF NOT EXISTS bluury_staging_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+sudo mysql -e "CREATE USER IF NOT EXISTS 'bluury_user'@'localhost' IDENTIFIED BY 'bluury2026!';"
+sudo mysql -e "ALTER USER 'bluury_user'@'localhost' IDENTIFIED BY 'bluury2026!';"
+sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'bluury_user'@'localhost' WITH GRANT OPTION;"
+sudo mysql -e "FLUSH PRIVILEGES;"
 
-cat > backend/.env << EOF
+cat > backend/.env << 'EOF'
 PORT=5001
 JWT_SECRET=bluury_staging_secret_key_2026_test
-DATABASE_URL="${DB_URL}"
+DATABASE_URL="mysql://bluury_user:bluury2026!@localhost:3306/bluury_staging_db"
 CLIENT_URL="https://staging.blurryajans.com"
 EOF
-
-# Staging veritabanını oluştur (canlı veritabanındaki kullanıcı/şifre ile veya root ile)
-DB_USER=$(echo "$DB_URL" | sed -E 's#.*://([^:]+):([^@]+)@.*#\1#')
-DB_PASS=$(echo "$DB_URL" | sed -E 's#.*://([^:]+):([^@]+)@.*#\2#')
-
-if [ -n "$DB_PASS" ] && [ "$DB_PASS" != "$DB_URL" ]; then
-    mysql -u "$DB_USER" -p"$DB_PASS" -e "CREATE DATABASE IF NOT EXISTS bluury_staging_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
-else
-    mysql -u root -e "CREATE DATABASE IF NOT EXISTS bluury_staging_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
-fi
 
 cd backend
 npm install --production=false
