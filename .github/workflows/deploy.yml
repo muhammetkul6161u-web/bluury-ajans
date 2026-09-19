@@ -1,18 +1,15 @@
-name: Deploy to Hostinger VPS
+name: Deploy to Hostinger VPS (Production & Staging)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "staging" ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Deploy to VPS
+      - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -20,25 +17,38 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_PORT }}
           script: |
-            cd /var/www/bluuryajans.com
-            git pull origin main
-            
-            # Backend Dependencies & DB Sync
-            cd backend
-            npm install --production=false
-            npx prisma generate
-            npx prisma db push
-            
-            # Restart PM2 process
-            cd ..
-            pm2 reload ecosystem.config.js --env production || pm2 start ecosystem.config.js --env production
-            pm2 save
-            
-            # Frontend Dependencies & Build
-            npm install
-            npm run build
-            
-            # Move frontend dist to nginx public folder (if necessary, depends on Nginx config)
-            # Assuming Nginx points to /var/www/bluuryajans.com/dist
-            
-            echo "Deployment completed successfully!"
+            if [ "${{ github.ref }}" = "refs/heads/staging" ]; then
+              echo "🚀 Staging ortamı güncelleniyor..."
+              cd /var/www/bluuryajans-staging
+              git pull origin staging
+              
+              cd backend
+              npm install --production=false
+              npx prisma generate
+              npx prisma db push
+              
+              cd ..
+              pm2 restart bluury-staging || pm2 start backend/server.js --name bluury-staging --env production -- 5001
+              pm2 save
+              
+              npm install
+              npm run build
+              echo "✅ Staging başarıyla güncellendi -> https://staging.blurryajans.com"
+            else
+              echo "🌟 Canlı (Production) ortamı güncelleniyor..."
+              cd /var/www/bluuryajans.com
+              git pull origin main
+              
+              cd backend
+              npm install --production=false
+              npx prisma generate
+              npx prisma db push
+              
+              cd ..
+              pm2 restart bluury-backend || pm2 start ecosystem.config.js --name bluury-backend --env production
+              pm2 save
+              
+              npm install
+              npm run build
+              echo "✅ Canlı Site başarıyla güncellendi -> https://blurryajans.com"
+            fi
