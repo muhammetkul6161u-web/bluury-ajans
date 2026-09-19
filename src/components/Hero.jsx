@@ -18,11 +18,13 @@ const Hero = () => {
       .then(res => res.json())
       .then(data => {
         if(data && !data.error) {
+          const rawUrl = data.mediaUrl || heroData.mediaUrl;
+          const isVid = data.mediaType === 'video' || (rawUrl && /\.(mp4|webm|ogg|mov)/i.test(rawUrl));
           setHeroData({
             title: data.title || heroData.title,
             subtitle: data.subtitle || heroData.subtitle,
-            mediaUrl: data.mediaUrl || heroData.mediaUrl,
-            mediaType: data.mediaType || heroData.mediaType,
+            mediaUrl: rawUrl,
+            mediaType: isVid ? 'video' : (data.mediaType || 'image'),
             isEmbed: data.isEmbed || false
           });
         }
@@ -30,6 +32,8 @@ const Hero = () => {
       .catch(err => console.error("Hero API Error:", err))
       .finally(() => setLoading(false));
   }, []);
+
+  const isVideoMedia = heroData.mediaType === 'video' || (heroData.mediaUrl && /\.(mp4|webm|ogg|mov)/i.test(heroData.mediaUrl));
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center bg-black z-0">
@@ -43,9 +47,7 @@ const Hero = () => {
             allow="autoplay; fullscreen; picture-in-picture"
             title="Hero Video"
           />
-        ) : heroData.mediaType === 'image' ? (
-          <img src={getMediaUrl(heroData.mediaUrl)} alt="Hero" className="w-full h-full object-cover opacity-80" />
-        ) : (
+        ) : isVideoMedia ? (
           <video
             src={getMediaUrl(heroData.mediaUrl)}
             autoPlay
@@ -58,6 +60,12 @@ const Hero = () => {
             controlsList="nodownload nofullscreen noremoteplayback"
             preload="auto"
             className="w-full h-full object-cover pointer-events-none"
+          />
+        ) : (
+          <img 
+            src={getMediaUrl(heroData.mediaUrl)} 
+            alt="Hero" 
+            className="w-full h-full object-cover opacity-80" 
           />
         )}
         {/* Dark overlay for dimming/contrast */}

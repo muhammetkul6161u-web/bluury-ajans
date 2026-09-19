@@ -216,8 +216,20 @@ router.get('/hero', async (req, res) => {
     if (!hero) {
       hero = await prisma.hero.create({
         data: {
-          title: "BLUURY AJANS",
-          subtitle: "ANILARINIZI SANATA DÖNÜŞTÜRÜYORUZ"
+          title: "Anıların Işığında <br /> Profesyonel Çekimler",
+          subtitle: "Her karede duyguyu, hikâyeyi ve zamanı yakalıyoruz. Moda, etkinlik, ürün ve portre çekimlerinde estetik bakış açısıyla markanıza değer katarız.",
+          mediaUrl: "/ana sayfa/gözdevideo.mp4",
+          mediaType: "video",
+          buttonText: "ÇEKİM PLANLA",
+          buttonLink: "/iletisim"
+        }
+      });
+    } else if (!hero.mediaUrl || hero.mediaUrl.trim() === '' || (hero.mediaUrl.includes('.mp4') && hero.mediaType === 'image')) {
+      hero = await prisma.hero.update({
+        where: { id: hero.id },
+        data: {
+          mediaUrl: hero.mediaUrl && hero.mediaUrl.trim() !== '' ? hero.mediaUrl : "/ana sayfa/gözdevideo.mp4",
+          mediaType: "video"
         }
       });
     }

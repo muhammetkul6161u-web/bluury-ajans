@@ -90,7 +90,7 @@ const HeroPanel = () => {
         </div>
 
         <a 
-          href="http://localhost:3000/" 
+          href="/" 
           target="_blank" 
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 transition-colors self-start"
