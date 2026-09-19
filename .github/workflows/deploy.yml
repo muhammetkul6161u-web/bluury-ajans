@@ -1,8 +1,8 @@
-name: Deploy to Hostinger VPS (Production & Staging)
+name: Auto Deploy to Hostinger VPS
 
 on:
   push:
-    branches: [ "main", "staging" ]
+    branches: [ "main" ]
 
 jobs:
   deploy:
@@ -17,38 +17,26 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_PORT }}
           script: |
-            if [ "${{ github.ref }}" = "refs/heads/staging" ]; then
-              echo "🚀 Staging ortamı güncelleniyor..."
-              cd /var/www/bluuryajans-staging
-              git pull origin staging
-              
-              cd backend
-              npm install --production=false
-              npx prisma generate
-              npx prisma db push
-              
-              cd ..
-              pm2 restart bluury-staging || pm2 start backend/server.js --name bluury-staging --env production -- 5001
-              pm2 save
-              
-              npm install
-              npm run build
-              echo "✅ Staging başarıyla güncellendi -> https://staging.blurryajans.com"
-            else
-              echo "🌟 Canlı (Production) ortamı güncelleniyor..."
-              cd /var/www/bluuryajans.com
-              git pull origin main
-              
-              cd backend
-              npm install --production=false
-              npx prisma generate
-              npx prisma db push
-              
-              cd ..
-              pm2 restart bluury-backend || pm2 start ecosystem.config.js --name bluury-backend --env production
-              pm2 save
-              
-              npm install
-              npm run build
-              echo "✅ Canlı Site başarıyla güncellendi -> https://blurryajans.com"
-            fi
+            echo "🚀 Canlı Site Güncelleniyor..."
+            cd /var/www/bluuryajans.com
+            
+            # Olası çakışmaları önleyip en güncel kodları çek
+            git stash
+            git pull origin main
+            
+            # Backend ve Veritabanı Güncellemesi
+            cd backend
+            npm install --production=false
+            npx prisma generate
+            npx prisma db push
+            
+            # Backend Servisini Yeniden Başlat (PM2)
+            cd /var/www/bluuryajans.com
+            pm2 restart bluury-backend || pm2 start ecosystem.config.js --env production
+            pm2 save
+            
+            # Frontend Derlemesi (Build)
+            npm install
+            npm run build
+            
+            echo "🎉 Tebrikler! blurryajans.com başarıyla güncellendi ve yayında!"
