@@ -13,14 +13,24 @@ git pull origin staging 2>/dev/null || true
 
 echo "⚙️ [2/6] Staging Backend ve Veritabanı Yapılandırılıyor..."
 mkdir -p backend/uploads
-cat > backend/.env << 'EOF'
+
+# Canlı .env'deki veritabanı şifresini otomatik al ve staging veritabanına uyarla
+PROD_ENV="/var/www/bluuryajans.com/backend/.env"
+if [ -f "$PROD_ENV" ]; then
+    DB_URL=$(grep DATABASE_URL "$PROD_ENV" | cut -d '=' -f2- | tr -d '"' | tr -d "'" | sed 's/bluury_db/bluury_staging_db/g')
+else
+    DB_URL="mysql://root:123456@localhost:3306/bluury_staging_db"
+fi
+
+cat > backend/.env << EOF
 PORT=5001
 JWT_SECRET=bluury_staging_secret_key_2026_test
-DATABASE_URL="mysql://root:123456@localhost:3306/bluury_staging_db"
+DATABASE_URL="${DB_URL}"
 CLIENT_URL="https://staging.blurryajans.com"
 EOF
 
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS bluury_staging_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
+# Veritabanını oluştur
+mysql -e "CREATE DATABASE IF NOT EXISTS bluury_staging_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
 
 cd backend
 npm install --production=false
