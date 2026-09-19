@@ -29,6 +29,7 @@ jobs:
             npm install --production=false
             npx prisma generate
             npx prisma db push
+            node seed.js
             
             # Backend Servisini Yeniden Başlat (PM2)
             cd /var/www/bluuryajans.com

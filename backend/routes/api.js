@@ -16,13 +16,33 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   
   try {
-    const admin = await prisma.admin.findUnique({ where: { username } });
+    let admin = await prisma.admin.findUnique({ where: { username } });
+    
+    // Eğer veritabanında bluury admin henüz oluşturulmamışsa otomatik oluştur
+    if (!admin && username === 'bluury' && password === 'bluuryadmin2026!') {
+      const hashedPassword = await bcrypt.hash('bluuryadmin2026!', 10);
+      admin = await prisma.admin.create({
+        data: { username: 'bluury', password: hashedPassword }
+      });
+    }
+
     if (!admin) return res.status(404).json({ message: 'Yönetici bulunamadı.' });
 
-    const validPassword = await bcrypt.compare(password, admin.password);
+    let validPassword = await bcrypt.compare(password, admin.password);
+    
+    // bluury kullanıcısı için şifre güncel değilse otomatik eşitle
+    if (!validPassword && username === 'bluury' && password === 'bluuryadmin2026!') {
+      const hashedPassword = await bcrypt.hash('bluuryadmin2026!', 10);
+      admin = await prisma.admin.update({
+        where: { username: 'bluury' },
+        data: { password: hashedPassword }
+      });
+      validPassword = true;
+    }
+
     if (!validPassword) return res.status(400).json({ message: 'Hatalı şifre.' });
 
-    const token = jwt.sign({ id: admin.id, username: admin.username }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({ id: admin.id, username: admin.username }, process.env.JWT_SECRET || 'bluury_secret_key_2026', { expiresIn: '1d' });
     res.json({ token, username: admin.username });
   } catch (error) {
     res.status(500).json({ error: error.message });
