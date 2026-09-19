@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { API_BASE_URL, getMediaUrl } from "@/config/api";
 
 const CATEGORIES = [
   { key: "Dugun", label: "Düğün" },
@@ -17,20 +18,42 @@ const Portfolio = () => {
   const [touchEnd, setTouchEnd] = useState(null);
   const minSwipeDistance = 50;
 
+  const [dbItems, setDbItems] = useState([]);
+  
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/portfolio`)
+      .then(res => res.json())
+      .then(data => {
+        if(data && Array.isArray(data)) setDbItems(data);
+      })
+      .catch(err => console.error(err));
+  }, []);
+
   const images = useMemo(() => {
+    const apiItems = dbItems.filter(item => item.category === activeCategory);
+    
+    if (apiItems.length > 0) {
+      return apiItems.map((item, index) => ({
+        id: item.id,
+        src: getMediaUrl(item.mediaUrl),
+        index
+      }));
+    }
+    
+    // Fallback if API fails or empty
     if (activeCategory === "Dugun") {
       return [
         { id: "Dugun-1", src: "/Portfoy/Dugun/dugun1.webp", index: 0 },
-        { id: "Dugun-2", src: "/Portfoy/Dugun/dugun2.jpg", index: 1 },
+        { id: "Dugun-2", src: "/Portfoy/Dugun/dugun2.webp", index: 1 },
         { id: "Dugun-3", src: "/Portfoy/Dugun/dugun3.webp", index: 2 },
         { id: "Dugun-4", src: "/Portfoy/Dugun/dugun4.webp", index: 3 },
         { id: "Dugun-5", src: "/Portfoy/Dugun/dugun5.webp", index: 4 },
       ];
     } else if (activeCategory === "Dis") {
       return [
-        { id: "Dis-1", src: "/Portfoy/Dış/dış1.jpg", index: 0 },
-        { id: "Dis-2", src: "/Portfoy/Dış/dış2.jpg", index: 1 },
-        { id: "Dis-3", src: "/Portfoy/Dış/dış3.jpg", index: 2 },
+        { id: "Dis-1", src: "/Portfoy/Dış/dış1.webp", index: 0 },
+        { id: "Dis-2", src: "/Portfoy/Dış/dış2.webp", index: 1 },
+        { id: "Dis-3", src: "/Portfoy/Dış/dış3.webp", index: 2 },
         { id: "Dis-4", src: "/Portfoy/Dış/dış4.webp", index: 3 },
         { id: "Dis-5", src: "/Portfoy/Dış/dış5.webp", index: 4 },
       ];
@@ -43,7 +66,7 @@ const Portfolio = () => {
       ];
     }
     return [];
-  }, [activeCategory]);
+  }, [activeCategory, dbItems]);
 
   // Handle keyboard arrow navigation for premium desktop experience
   useEffect(() => {

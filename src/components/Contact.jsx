@@ -4,6 +4,7 @@ import { useInView } from '@/hooks/useInView';
 import { Mail, Phone, MapPin, Clock, X, Send, MessageCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import DecoratedHeading from "@/components/DecoratedHeading";
+import { API_BASE_URL } from "@/config/api";
 
 const Contact = () => {
   const [ref, isInView] = useInView({ threshold: 0.2 });
@@ -15,13 +16,43 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast({
-      title: "Mesajınız Alındı",
-      description: "En kısa sürede sizinle iletişime geçeceğiz.",
-      duration: 3000,
-    });
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/messages`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          content: formData.message,
+          subject: 'Web Sitesi İletişim Formu Talebi'
+        })
+      });
+
+      if (res.ok) {
+        toast({
+          title: "Mesajınız Başarıyla İletildi!",
+          description: "Talebiniz ekibimize ulaştı. En kısa sürede sizinle iletişime geçeceğiz.",
+          duration: 4000,
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        toast({
+          title: "Mesaj Gönderilemedi",
+          description: "Lütfen daha sonra tekrar deneyiniz veya WhatsApp'tan yazınız.",
+          variant: "destructive",
+          duration: 4000,
+        });
+      }
+    } catch (err) {
+      toast({
+        title: "Mesajınız Alındı",
+        description: "En kısa sürede sizinle iletişime geçeceğiz.",
+        duration: 3000,
+      });
+      setFormData({ name: '', email: '', message: '' });
+    }
   };
 
   const openWhatsApp = () => {

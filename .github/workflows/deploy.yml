@@ -1,0 +1,44 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            cd /var/www/bluuryajans.com
+            git pull origin main
+            
+            # Backend Dependencies & DB Sync
+            cd backend
+            npm install --production=false
+            npx prisma generate
+            npx prisma db push
+            
+            # Restart PM2 process
+            cd ..
+            pm2 reload ecosystem.config.js --env production || pm2 start ecosystem.config.js --env production
+            pm2 save
+            
+            # Frontend Dependencies & Build
+            npm install
+            npm run build
+            
+            # Move frontend dist to nginx public folder (if necessary, depends on Nginx config)
+            # Assuming Nginx points to /var/www/bluuryajans.com/dist
+            
+            echo "Deployment completed successfully!"

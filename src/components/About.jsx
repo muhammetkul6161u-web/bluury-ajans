@@ -86,7 +86,7 @@ const About = () => {
               disablePictureInPicture
               disableRemotePlayback
               controlsList="nodownload nofullscreen noremoteplayback"
-              preload="auto"
+              preload="metadata"
               className="w-full h-full object-cover object-center pointer-events-none"
             />
           </motion.div>

@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  id              Int      @id @default(autoincrement())
+  maintenanceMode Boolean  @default(false)
+  phone           String?
+  email           String?
+  address         String?
+  instagramUrl    String?
+  whatsappNumber  String?
+  facebookUrl     String?
+  twitterUrl      String?
+  mapEmbedUrl     String?  @db.Text
+  footerText      String?  @db.Text
+  updatedAt       DateTime @updatedAt
+}
+
+model Hero {
+  id           Int      @id @default(autoincrement())
+  title        String
+  subtitle     String   @db.Text
+  mediaUrl     String?
+  mediaType    String   @default("image") // "image" or "video"
+  isEmbed      Boolean  @default(false)
+  buttonText   String?  @default("ÇEKİM PLANLA")
+  buttonLink   String?  @default("/iletisim")
+  updatedAt    DateTime @updatedAt
+}
+
+model About {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String   @db.Text // Rich Text HTML
+  mission     String?  @db.Text
+  vision      String?  @db.Text
+  imageUrl1   String?
+  imageUrl2   String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Portfolio {
+  id          Int      @id @default(autoincrement())
+  category    String   // "Dugun", "Dis", "Reklam", etc.
+  title       String?
+  description String?  @db.Text
+  mediaUrl    String
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text // Rich Text HTML
+  shortDesc   String?  @db.Text // Short description for cards
+  mediaUrl    String
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id          Int      @id @default(autoincrement())
+  clientName  String
+  comment     String   @db.Text
+  mediaUrl    String?  
+  embedUrl    String?  @db.Text
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  content   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model GoogleReview {
+  id           Int      @id @default(autoincrement())
+  authorName   String
+  authorPhoto  String?  @db.Text
+  rating       Int      @default(5)
+  text         String   @db.Text
+  relativeTime String?
+  isVisible    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+}
+
+model GoogleSetting {
+  id           Int      @id @default(autoincrement())
+  placeId      String?
+  placeName    String?  @default("Bluury Ajans")
+  overallRating Float   @default(5.0)
+  totalReviews Int      @default(38)
+  googleMapsUrl String? @db.Text
+  updatedAt    DateTime @updatedAt
+}

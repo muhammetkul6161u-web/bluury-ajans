@@ -1,25 +1,65 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { API_BASE_URL, getMediaUrl } from "@/config/api";
 
 const Hero = () => {
+  const [heroData, setHeroData] = useState({
+    title: "Anıların Işığında <br /> Profesyonel Çekimler",
+    subtitle: "Her karede duyguyu, hikâyeyi ve zamanı yakalıyoruz. Moda, etkinlik, ürün ve portre çekimlerinde estetik bakış açısıyla markanıza değer katarız.",
+    mediaUrl: "/ana sayfa/gözdevideo.mp4",
+    mediaType: "video",
+    isEmbed: false
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/hero`)
+      .then(res => res.json())
+      .then(data => {
+        if(data && !data.error) {
+          setHeroData({
+            title: data.title || heroData.title,
+            subtitle: data.subtitle || heroData.subtitle,
+            mediaUrl: data.mediaUrl || heroData.mediaUrl,
+            mediaType: data.mediaType || heroData.mediaType,
+            isEmbed: data.isEmbed || false
+          });
+        }
+      })
+      .catch(err => console.error("Hero API Error:", err))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center bg-black z-0">
-      {/* Background Video — Loop + Faded (Soluk) Style */}
+      {/* Background Media */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <video
-          src="/ana sayfa/gözdevideo.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          webkit-playsinline="true"
-          disablePictureInPicture
-          disableRemotePlayback
-          controlsList="nodownload nofullscreen noremoteplayback"
-          preload="auto"
-          className="w-full h-full object-cover pointer-events-none"
-        />
+        {heroData.isEmbed ? (
+          <iframe
+            src={heroData.mediaUrl}
+            className="w-full h-full object-cover pointer-events-none opacity-80"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            title="Hero Video"
+          />
+        ) : heroData.mediaType === 'image' ? (
+          <img src={getMediaUrl(heroData.mediaUrl)} alt="Hero" className="w-full h-full object-cover opacity-80" />
+        ) : (
+          <video
+            src={getMediaUrl(heroData.mediaUrl)}
+            autoPlay
+            loop
+            muted
+            playsInline
+            webkit-playsinline="true"
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload nofullscreen noremoteplayback"
+            preload="auto"
+            className="w-full h-full object-cover pointer-events-none"
+          />
+        )}
         {/* Dark overlay for dimming/contrast */}
         <div className="absolute inset-0 bg-black/10 z-10 pointer-events-none" />
       </div>
@@ -33,15 +73,13 @@ const Hero = () => {
       >
         <h1
           className="font-heading text-2xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 md:mb-5 leading-[1.15] bg-gradient-to-r from-white to-[#C8A45A] bg-clip-text text-transparent drop-shadow-sm pb-2 px-2 md:px-0"
-        >
-          Anıların Işığında <br className="hidden md:block" />
-          Profesyonel Çekimler
-        </h1>
+          dangerouslySetInnerHTML={{ __html: heroData.title }}
+        />
 
-        <p className="text-xs sm:text-sm md:text-base text-white mb-6 md:mb-10 font-light max-w-xl mx-auto tracking-wide leading-relaxed">
-          Her karede duyguyu, hikâyeyi ve zamanı yakalıyoruz. Moda, etkinlik,
-          ürün ve portre çekimlerinde estetik bakış açısıyla markanıza değer katarız.
-        </p>
+        <p 
+          className="text-xs sm:text-sm md:text-base text-white mb-6 md:mb-10 font-light max-w-xl mx-auto tracking-wide leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: heroData.subtitle }}
+        />
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           {/* Çekim Planla (Primary) */}
