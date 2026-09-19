@@ -14,6 +14,8 @@ const allowedOrigins = [
   'http://127.0.0.1:3000',
   'http://localhost:5173',
   process.env.CLIENT_URL,
+  'https://blurryajans.com',
+  'https://www.blurryajans.com',
   'https://bluuryajans.com',
   'https://www.bluuryajans.com'
 ].filter(Boolean);
@@ -21,7 +23,7 @@ const allowedOrigins = [
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('bluuryajans.com')) {
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('blurryajans.com') || origin.includes('bluuryajans.com')) {
       return callback(null, true);
     }
     return callback(null, true);
