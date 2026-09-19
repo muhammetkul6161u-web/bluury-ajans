@@ -14,10 +14,10 @@ git pull origin staging 2>/dev/null || true
 echo "⚙️ [2/6] Staging Backend ve Veritabanı Yapılandırılıyor..."
 mkdir -p backend/uploads
 
-# Canlı .env'deki veritabanı şifresini otomatik al ve staging veritabanına uyarla
 PROD_ENV="/var/www/bluuryajans.com/backend/.env"
 if [ -f "$PROD_ENV" ]; then
-    DB_URL=$(grep DATABASE_URL "$PROD_ENV" | cut -d '=' -f2- | tr -d '"' | tr -d "'" | sed 's/bluury_db/bluury_staging_db/g')
+    # Sadece yorum olmayan gerçek DATABASE_URL satırını al
+    DB_URL=$(grep -E '^[[:space:]]*DATABASE_URL[[:space:]]*=' "$PROD_ENV" | tail -n 1 | cut -d '=' -f2- | tr -d '"' | tr -d "'" | sed 's/bluury_db/bluury_staging_db/g')
 else
     DB_URL="mysql://root:123456@localhost:3306/bluury_staging_db"
 fi
@@ -29,8 +29,15 @@ DATABASE_URL="${DB_URL}"
 CLIENT_URL="https://staging.blurryajans.com"
 EOF
 
-# Veritabanını oluştur
-mysql -e "CREATE DATABASE IF NOT EXISTS bluury_staging_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
+# Staging veritabanını oluştur (canlı veritabanındaki kullanıcı/şifre ile veya root ile)
+DB_USER=$(echo "$DB_URL" | sed -E 's#.*://([^:]+):([^@]+)@.*#\1#')
+DB_PASS=$(echo "$DB_URL" | sed -E 's#.*://([^:]+):([^@]+)@.*#\2#')
+
+if [ -n "$DB_PASS" ] && [ "$DB_PASS" != "$DB_URL" ]; then
+    mysql -u "$DB_USER" -p"$DB_PASS" -e "CREATE DATABASE IF NOT EXISTS bluury_staging_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
+else
+    mysql -u root -e "CREATE DATABASE IF NOT EXISTS bluury_staging_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
+fi
 
 cd backend
 npm install --production=false
