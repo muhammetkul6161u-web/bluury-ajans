@@ -78,7 +78,7 @@ const Services = () => {
                 <img
                   src={service.image}
                   alt={`${service.title} Fotoğrafçılık Hizmeti - Bluury Ajans`}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform [transition-duration:2000ms] ease-out group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
                 />

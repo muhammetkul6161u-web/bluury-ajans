@@ -16,9 +16,9 @@ const Portfolyo = () => {
         <meta property="og:title" content="Portfolyo — Bluury Ajans" />
         <meta property="og:description" content="Düğün, moda, ürün ve reklam çekimlerimizden seçme kareler içeren portfolyomuzu inceleyin." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bluuryajans.com/portfolyo" />
+        <meta property="og:url" content="https://blurryajans.com/portfolyo" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://bluuryajans.com/portfolyo" />
+        <link rel="canonical" href="https://blurryajans.com/portfolyo" />
       </Helmet>
 
       <div className="relative z-10 bg-[#D6D6D6] overflow-hidden">

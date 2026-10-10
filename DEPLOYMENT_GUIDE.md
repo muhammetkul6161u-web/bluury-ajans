@@ -177,7 +177,7 @@ Artık bilgisayarınızda bir satır kod değiştirip `git push` yaptığınız 
 
 ### 🎉 Tebrikler!
 Artık siteniz Vercel'den tamamen bağımsız, kendi Hostinger VPS sunucunuzda, ultra hızlı ve tam donanımlı olarak yayında:
-* **Canlı Site:** `https://bluuryajans.com`
-* **Admin Paneli:** `https://bluuryajans.com/admin/login`
+* **Canlı Site:** `https://blurryajans.com`
+* **Admin Paneli:** `https://blurryajans.com/admin/login`
   * **Kullanıcı Adı:** `bluury`
   * **Şifre:** `bluuryadmin2026!`

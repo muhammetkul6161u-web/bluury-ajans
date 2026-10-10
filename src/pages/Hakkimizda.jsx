@@ -23,9 +23,9 @@ const Hakkimizda = () => {
         <meta property="og:title" content="Hakkımızda — Bluury Ajans" />
         <meta property="og:description" content="Bluury Ajans'ın hikâyesini keşfedin. Trabzon merkezli profesyonel fotoğrafçılık stüdyosu." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bluuryajans.com/hakkimizda" />
+        <meta property="og:url" content="https://blurryajans.com/hakkimizda" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://bluuryajans.com/hakkimizda" />
+        <link rel="canonical" href="https://blurryajans.com/hakkimizda" />
       </Helmet>
 
       <div className="relative z-10 bg-[#D6D6D6] overflow-hidden">

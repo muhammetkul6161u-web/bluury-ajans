@@ -143,8 +143,8 @@ const AnaSayfa = () => {
         <meta property="og:title" content="Bluury Ajans — Trabzon'da Profesyonel Fotoğrafçılık" />
         <meta property="og:description" content="Trabzon merkezli modern ve lüks fotoğrafçılık ajansı. Düğün, dış çekim ve moda fotoğrafçılığı." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bluuryajans.com/" />
-        <link rel="canonical" href="https://bluuryajans.com/" />
+        <meta property="og:url" content="https://blurryajans.com/" />
+        <link rel="canonical" href="https://blurryajans.com/" />
       </Helmet>
 
       {/* Hero section + Overlapping Image Wrapper */}

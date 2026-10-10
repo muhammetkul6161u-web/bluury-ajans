@@ -6,7 +6,7 @@ const SettingsPanel = () => {
   const [settings, setSettings] = useState({
     maintenanceMode: false,
     phone: '+90 530 000 00 00',
-    email: 'info@bluuryajans.com',
+    email: 'info@blurryajans.com',
     address: 'Trabzon, Türkiye',
     instagramUrl: 'https://www.instagram.com/blurry_ajans',
     whatsappNumber: '+905300000000',

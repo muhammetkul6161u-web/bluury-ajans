@@ -92,7 +92,7 @@ const Contact = () => {
               {[
                 { icon: MapPin, title: "Adres", info: "Gazipaşa, Yavuz Selim Blv. No:50\nKat:3 No:16, Trabzon" },
                 { icon: Phone, title: "Telefon", info: "0536 496 56 98", link: "tel:05364965698" },
-                { icon: Mail, title: "E-Posta", info: "info@bluuryajans.com" },
+                { icon: Mail, title: "E-Posta", info: "info@blurryajans.com" },
                 { icon: Clock, title: "Çalışma Saatleri", info: "Pazartesi - Cumartesi: 10:00 - 19:00" },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-4 group">

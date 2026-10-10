@@ -54,7 +54,7 @@ const ReviewCard = ({ review, idx, setSelectedReview }) => {
       {review.embedUrl ? (
         <iframe
           src={review.embedUrl}
-          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[6s] ease-out pointer-events-none opacity-80 group-hover:opacity-100"
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform [transition-duration:6000ms] ease-out pointer-events-none opacity-80 group-hover:opacity-100"
           frameBorder="0"
           allow="autoplay; encrypted-media"
           title="Video Review"
@@ -72,7 +72,7 @@ const ReviewCard = ({ review, idx, setSelectedReview }) => {
           controlsList="nodownload nofullscreen noremoteplayback"
           controls={false}
           preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[6s] ease-out pointer-events-none opacity-80 group-hover:opacity-100"
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform [transition-duration:6000ms] ease-out pointer-events-none opacity-80 group-hover:opacity-100"
         />
       )}
 

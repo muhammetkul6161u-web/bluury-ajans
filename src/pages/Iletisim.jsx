@@ -19,9 +19,9 @@ const Iletisim = () => {
         <meta property="og:title" content="İletişim — Bluury Ajans" />
         <meta property="og:description" content="Bluury Ajans ile iletişime geçin. Trabzon'da profesyonel fotoğraf çekimi randevusu alın." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bluuryajans.com/iletisim" />
+        <meta property="og:url" content="https://blurryajans.com/iletisim" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://bluuryajans.com/iletisim" />
+        <link rel="canonical" href="https://blurryajans.com/iletisim" />
       </Helmet>
 
       <div className="relative z-10 bg-[#D6D6D6] overflow-hidden pt-20">

@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
 
-Sitemap: https://bluuryajans.com/sitemap.xml
+Sitemap: https://blurryajans.com/sitemap.xml

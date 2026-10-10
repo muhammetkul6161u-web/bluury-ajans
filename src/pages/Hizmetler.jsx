@@ -52,9 +52,9 @@ const Hizmetler = () => {
         <meta property="og:title" content="Hizmetlerimiz — Bluury Ajans" />
         <meta property="og:description" content="Düğün, moda, ürün ve reklam çekimi hizmetlerimizi keşfedin. Profesyonel fotoğrafçılık." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bluuryajans.com/hizmetler" />
+        <meta property="og:url" content="https://blurryajans.com/hizmetler" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://bluuryajans.com/hizmetler" />
+        <link rel="canonical" href="https://blurryajans.com/hizmetler" />
       </Helmet>
 
       <div className="relative z-10 bg-[#D6D6D6] overflow-hidden pt-20">
