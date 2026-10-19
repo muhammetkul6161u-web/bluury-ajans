@@ -39,5 +39,9 @@ jobs:
             # Frontend Derlemesi (Build)
             npm install
             npm run build
+
+            # Nginx Yapılandırmasını Senkronize Et ve Yeniden Yükle
+            cp /var/www/bluuryajans.com/bluuryajans.nginx.conf /etc/nginx/sites-available/bluuryajans.com
+            nginx -t && systemctl reload nginx
             
             echo "🎉 Tebrikler! blurryajans.com başarıyla güncellendi ve yayında!"

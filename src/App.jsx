@@ -90,27 +90,39 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
+    // Arama motoru botları (Googlebot, Bingbot vb.) için splash ekranını atla
+    const isBot =
+      typeof navigator !== "undefined" &&
+      /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(navigator.userAgent);
+    if (isBot) {
+      setShowSplash(false);
+      return;
+    }
+
     const timer = setTimeout(() => setShowSplash(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
-  if (showSplash) return <SplashScreen />;
-
   return (
-    <BrowserRouter>
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          {/* Admin Routes */}
-          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
-          <Route path="/admin/" element={<Navigate to="/admin/login" replace />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
-          
-          {/* Main Website Routes */}
-          <Route path="/*" element={<MainLayout />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    <>
+      <AnimatePresence>
+        {showSplash && <SplashScreen />}
+      </AnimatePresence>
+      <BrowserRouter>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            {/* Admin Routes */}
+            <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+            <Route path="/admin/" element={<Navigate to="/admin/login" replace />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
+
+            {/* Main Website Routes */}
+            <Route path="/*" element={<MainLayout />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </>
   );
 }
 
