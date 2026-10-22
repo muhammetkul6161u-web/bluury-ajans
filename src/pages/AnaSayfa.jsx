@@ -27,7 +27,7 @@ const services = [
   {
     title: "After Çekimi",
     desc: "Düğün ve etkinliklerinizin ardından devam eden eğlenceyi, en enerjik ve doğal anlarıyla yakalayarak ölümsüzleştiriyoruz.",
-    image: "/hizmetler/afterparti.webp",
+    image: "/hizmet-gorselleri/afterparti.webp",
   },
 ];
 

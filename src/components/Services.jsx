@@ -9,35 +9,35 @@ const Services = () => {
       title: "Düğün Çekimi",
       description:
         "En özel gününüzün heyecanını, zarafetini ve tüm duygusal anlarını lüks ve sinematik karelerle ölümsüzleştiriyoruz.",
-      image: "/hizmetler/düğünhz.webp",
+      image: "/hizmet-gorselleri/düğünhz.webp",
     },
     {
       id: 2,
       title: "Dış Çekim",
       description:
         "Doğal ışık altında, büyüleyici Trabzon doğasında sanatsal ve estetik dış çekimlerle en güzel anılarınızı biriktiriyoruz.",
-      image: "/hizmetler/dışhz.webp",
+      image: "/hizmet-gorselleri/dışhz.webp",
     },
     {
       id: 3,
       title: "Ürün Çekimi",
       description:
         "Ürünlerinizin tüm detaylarını, kalitesini ve estetiğini ön plana çıkaran yüksek çözünürlüklü ve satış odaklı çekimler sunuyoruz.",
-      image: "/hizmetler/ürünhz.webp",
+      image: "/hizmet-gorselleri/ürünhz.webp",
     },
     {
       id: 4,
       title: "Reklam Çekimi",
       description:
         "Markanızın vizyonunu, kimliğini ve gücünü en etkileyici ve dikkat çekici görsel dille anlatan kurumsal reklam çekimleri yapıyoruz.",
-      image: "/hizmetler/reklamhz.webp",
+      image: "/hizmet-gorselleri/reklamhz.webp",
     },
     {
       id: 5,
       title: "After Çekimi",
       description:
         "Düğün ve etkinliklerinizin ardından devam eden eğlenceyi, en enerjik ve doğal anlarıyla yakalayarak ölümsüzleştiriyoruz.",
-      image: "/hizmetler/afterparti.webp",
+      image: "/hizmet-gorselleri/afterparti.webp",
     },
   ];
 
