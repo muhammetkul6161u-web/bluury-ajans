@@ -20,16 +20,21 @@ jobs:
             echo "🚀 Canlı Site Güncelleniyor..."
             cd /var/www/bluuryajans.com
             
+            # backend/.env artık git'te takip edilmiyor: pull sırasında silinmemesi için yedekle ve geri yükle
+            cp backend/.env "$HOME/bluury-backend.env.bak" 2>/dev/null || true
+
             # Olası çakışmaları önleyip en güncel kodları çek
             git stash
             git pull origin main
+
+            [ -f backend/.env ] || cp "$HOME/bluury-backend.env.bak" backend/.env
+            chmod 600 backend/.env
             
             # Backend ve Veritabanı Güncellemesi
             cd backend
             npm install --production=false
             npx prisma generate
             npx prisma db push
-            node seed.js
             
             # Backend Servisini Yeniden Başlat (PM2)
             cd /var/www/bluuryajans.com

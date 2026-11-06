@@ -38,11 +38,11 @@ const PortfolioPanel = () => {
             { category: 'Reklam', mediaUrl: '/katolog/katolog3.webp', title: 'Katalog Moda 3' },
             { category: 'Reklam', mediaUrl: '/katolog/katolog4.webp', title: 'Katalog Moda 4' },
           ];
-          const token = localStorage.getItem('adminToken');
           for (const item of initialPortfolio) {
             await fetch(`${API_BASE_URL}/api/portfolio`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
               body: JSON.stringify(item)
             });
           }
@@ -66,11 +66,11 @@ const PortfolioPanel = () => {
 
   const handleAdd = async (mediaUrl) => {
     if (!mediaUrl) return;
-    const token = localStorage.getItem('adminToken');
     try {
       const res = await fetch(`${API_BASE_URL}/api/portfolio`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
         body: JSON.stringify({ category, mediaUrl, title: `${category} Çekimi` })
       });
       if (res.ok) fetchItems();
@@ -81,11 +81,11 @@ const PortfolioPanel = () => {
 
   const handleReplace = async (id, newUrl) => {
     if (!newUrl) return;
-    const token = localStorage.getItem('adminToken');
     try {
       const res = await fetch(`${API_BASE_URL}/api/portfolio/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
         body: JSON.stringify({ mediaUrl: newUrl })
       });
       if (res.ok) fetchItems();
@@ -96,11 +96,10 @@ const PortfolioPanel = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Bu görseli portfolyodan silmek istediğinize emin misiniz?')) return;
-    const token = localStorage.getItem('adminToken');
     try {
       const res = await fetch(`${API_BASE_URL}/api/portfolio/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
+        credentials: 'include'
       });
       if (res.ok) fetchItems();
     } catch (e) {
@@ -246,10 +245,9 @@ const PortfolioPanel = () => {
                         if (!file) return;
                         const formData = new FormData();
                         formData.append('media', file);
-                        const token = localStorage.getItem('adminToken');
                         const res = await fetch(`${API_BASE_URL}/api/upload`, {
                           method: 'POST',
-                          headers: { 'Authorization': `Bearer ${token}` },
+                          credentials: 'include',
                           body: formData
                         });
                         const data = await res.json();

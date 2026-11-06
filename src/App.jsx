@@ -8,6 +8,8 @@ import { Toaster } from "@/components/ui/toaster";
 import SplashScreen from "@/components/SplashScreen";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { API_BASE_URL } from "@/config/api";
+import { ConsentProvider } from "@/components/consent/ConsentProvider";
+import CookieConsent from "@/components/consent/CookieConsent";
 
 // Main Pages
 const AnaSayfa = lazy(() => import("@/pages/AnaSayfa"));
@@ -16,6 +18,13 @@ const Portfolyo = lazy(() => import("@/pages/Portfolyo"));
 const Iletisim = lazy(() => import("@/pages/Iletisim"));
 const Hakkimizda = lazy(() => import("@/pages/Hakkimizda"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
+
+// Legal Pages
+const KvkkAydinlatma = lazy(() => import("@/pages/legal/KvkkAydinlatma"));
+const AcikRiza = lazy(() => import("@/pages/legal/AcikRiza"));
+const CerezPolitikasi = lazy(() => import("@/pages/legal/CerezPolitikasi"));
+const GizlilikPolitikasi = lazy(() => import("@/pages/legal/GizlilikPolitikasi"));
+const Kunye = lazy(() => import("@/pages/legal/Kunye"));
 
 // Admin Pages
 const AdminLogin = lazy(() => import("@/pages/Admin/AdminLogin"));
@@ -40,6 +49,11 @@ const AnimatedRoutes = () => {
         <Route path="/portfolyo" element={<Portfolyo />} />
         <Route path="/iletisim" element={<Iletisim />} />
         <Route path="/hakkimizda" element={<Hakkimizda />} />
+        <Route path="/kvkk-aydinlatma-metni" element={<KvkkAydinlatma />} />
+        <Route path="/acik-riza-metni" element={<AcikRiza />} />
+        <Route path="/cerez-politikasi" element={<CerezPolitikasi />} />
+        <Route path="/gizlilik-politikasi" element={<GizlilikPolitikasi />} />
+        <Route path="/kunye" element={<Kunye />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
@@ -72,6 +86,8 @@ const MainLayout = () => {
 
   return (
     <div className="bg-[#FFFFFF] text-[#333333] relative overflow-x-hidden">
+      {/* Çerez bildirimi DOM'da ilk sırada: klavye kullanıcıları için ilk odaklanılan öğe olur */}
+      <CookieConsent />
       <ScrollToTop />
       <Navbar />
       <main>
@@ -109,6 +125,7 @@ function App() {
         {showSplash && <SplashScreen />}
       </AnimatePresence>
       <BrowserRouter>
+        <ConsentProvider>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             {/* Admin Routes */}
@@ -121,6 +138,7 @@ function App() {
             <Route path="/*" element={<MainLayout />} />
           </Routes>
         </Suspense>
+        </ConsentProvider>
       </BrowserRouter>
     </>
   );

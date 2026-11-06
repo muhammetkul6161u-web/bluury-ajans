@@ -1,0 +1,23 @@
+// Fontlar kendi sunucumuzdan sunulur: ziyaretçinin IP adresi Google Fonts'a (yurt dışına) aktarılmaz.
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "@fontsource/cinzel/400.css";
+import "@fontsource/cinzel/500.css";
+import "@fontsource/cinzel/600.css";
+import "@fontsource/cinzel/700.css";
+import "@fontsource/cinzel/800.css";
+import "@fontsource/cinzel/900.css";
+import "@fontsource/cinzel-decorative/400.css";
+import "@fontsource/cinzel-decorative/700.css";
+import "@fontsource/cinzel-decorative/900.css";
+import "@fontsource/playfair-display/400.css";
+import "@fontsource/playfair-display/500.css";
+import "@fontsource/playfair-display/600.css";
+import "@fontsource/playfair-display/700.css";
+import "@fontsource/playfair-display/400-italic.css";
+import "@fontsource/playfair-display/500-italic.css";
+import "@fontsource/great-vibes/400.css";

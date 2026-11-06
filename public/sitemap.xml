@@ -30,4 +30,34 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://blurryajans.com/kvkk-aydinlatma-metni</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://blurryajans.com/acik-riza-metni</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://blurryajans.com/cerez-politikasi</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://blurryajans.com/gizlilik-politikasi</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://blurryajans.com/kunye</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>

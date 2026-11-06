@@ -5,12 +5,33 @@ import { Mail, Phone, MapPin, Clock, X, Send, MessageCircle } from 'lucide-react
 import { useToast } from '@/components/ui/use-toast';
 import DecoratedHeading from "@/components/DecoratedHeading";
 import { API_BASE_URL } from "@/config/api";
+import { Link } from "react-router-dom";
+import ConsentGate from "@/components/consent/ConsentGate";
+
+const MAP_EXTERNAL_URL = "https://www.google.com/maps/search/?api=1&query=" +
+  encodeURIComponent("Gazipaşa, Yavuz Selim Blv. No:50, 61030 Ortahisar/Trabzon");
+
+// Onay yokken Google'a istek atmadan gösterilen yerel harita görseli
+const MapPlaceholder = () => (
+  <div
+    aria-hidden="true"
+    className="absolute inset-0 bg-[#E9E6DF]"
+    style={{
+      backgroundImage:
+        "linear-gradient(rgba(200,164,90,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(200,164,90,0.18) 1px, transparent 1px), linear-gradient(115deg, transparent 46%, rgba(255,255,255,0.9) 46%, rgba(255,255,255,0.9) 52%, transparent 52%)",
+      backgroundSize: "28px 28px, 28px 28px, 100% 100%",
+    }}
+  >
+    <MapPin size={34} className="absolute left-1/2 top-[22%] -translate-x-1/2 text-[#C8A45A] fill-[#C8A45A]/30" />
+  </div>
+);
 
 const Contact = () => {
   const [ref, isInView] = useInView({ threshold: 0.2 });
   const { toast } = useToast();
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', website: '' });
   const [isMapOpen, setIsMapOpen] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,6 +39,8 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSending) return;
+    setIsSending(true);
     try {
       const res = await fetch(`${API_BASE_URL}/api/messages`, {
         method: 'POST',
@@ -26,7 +49,7 @@ const Contact = () => {
           name: formData.name,
           email: formData.email,
           content: formData.message,
-          subject: 'Web Sitesi İletişim Formu Talebi'
+          website: formData.website // bot tuzağı (honeypot): insanlar bu alanı görmez
         })
       });
 
@@ -36,7 +59,7 @@ const Contact = () => {
           description: "Talebiniz ekibimize ulaştı. En kısa sürede sizinle iletişime geçeceğiz.",
           duration: 4000,
         });
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', message: '', website: '' });
       } else {
         toast({
           title: "Mesaj Gönderilemedi",
@@ -47,11 +70,13 @@ const Contact = () => {
       }
     } catch (err) {
       toast({
-        title: "Mesajınız Alındı",
-        description: "En kısa sürede sizinle iletişime geçeceğiz.",
-        duration: 3000,
+        title: "Mesaj Gönderilemedi",
+        description: "Bağlantı hatası oluştu. Lütfen tekrar deneyiniz veya WhatsApp'tan yazınız.",
+        variant: "destructive",
+        duration: 4000,
       });
-      setFormData({ name: '', email: '', message: '' });
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -118,15 +143,25 @@ const Contact = () => {
             </div>
 
             {/* Harita */}
-            <div className="relative rounded-3xl overflow-hidden h-56 border border-black/5 hover:border-[#C8A45A]/30 shadow-[0_15px_30px_rgba(0,0,0,0.05)] cursor-pointer group transition-all duration-500 flex-grow"
-              onClick={() => setIsMapOpen(true)}>
-              <iframe src={mapSrc} width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade" className="transition-all duration-500 pointer-events-none group-hover:scale-105"
-                title="Trabzon Ofis Haritası" />
-              <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-all duration-500" />
-              <div className="absolute bottom-4 left-4 bg-[#FAFAF8]/95 backdrop-blur-md px-4 py-2 rounded-full text-[10px] text-black font-bold border border-[#C8A45A]/25 shadow-md">
-                Haritayı büyütmek için tıklayın
-              </div>
+            <div className="relative rounded-3xl overflow-hidden h-56 min-h-[14rem] border border-black/5 hover:border-[#C8A45A]/30 shadow-[0_15px_30px_rgba(0,0,0,0.05)] group transition-all duration-500 flex-grow">
+              <ConsentGate
+                provider="Google Haritalar"
+                loadLabel="Haritayı yükle"
+                placeholder={<MapPlaceholder />}
+                externalUrl={MAP_EXTERNAL_URL}
+                externalLabel="Google Haritalar'da aç"
+                className="absolute inset-0"
+              >
+                <iframe src={mapSrc} width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin" className="transition-all duration-500 pointer-events-none group-hover:scale-105"
+                  title="Trabzon Ofis Haritası" />
+                <button type="button" onClick={() => setIsMapOpen(true)} aria-label="Haritayı tam ekran aç"
+                  className="absolute inset-0 w-full h-full bg-black/[0.02] group-hover:bg-transparent transition-all duration-500 border-none cursor-pointer p-0">
+                  <span className="absolute bottom-4 left-4 bg-[#FAFAF8]/95 backdrop-blur-md px-4 py-2 rounded-full text-[10px] text-black font-bold border border-[#C8A45A]/25 shadow-md">
+                    Haritayı büyütmek için tıklayın
+                  </span>
+                </button>
+              </ConsentGate>
             </div>
           </motion.div>
 
@@ -146,28 +181,42 @@ const Contact = () => {
             </h3>
             <form onSubmit={handleSubmit} className="space-y-6 flex-grow flex flex-col">
               <div>
-                <label className="block text-xs font-bold text-black mb-2 tracking-wider uppercase">Adınız Soyadınız</label>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} required
+                <label htmlFor="contact-name" className="block text-xs font-bold text-black mb-2 tracking-wider uppercase">Adınız Soyadınız</label>
+                <input type="text" id="contact-name" name="name" value={formData.name} onChange={handleChange} required maxLength={100} autoComplete="name"
                   className="w-full px-4 py-3.5 rounded-xl bg-white/70 border border-black/15 text-black placeholder-black/35 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A] transition-all text-base md:text-sm font-semibold shadow-sm"
                   placeholder="Örn: Ahmet Yılmaz" />
               </div>
               <div>
-                <label className="block text-xs font-bold text-black mb-2 tracking-wider uppercase">E-Posta Adresiniz</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} required
+                <label htmlFor="contact-email" className="block text-xs font-bold text-black mb-2 tracking-wider uppercase">E-Posta Adresiniz</label>
+                <input type="email" id="contact-email" name="email" value={formData.email} onChange={handleChange} required maxLength={254} autoComplete="email"
                   className="w-full px-4 py-3.5 rounded-xl bg-white/70 border border-black/15 text-black placeholder-black/35 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A] transition-all text-base md:text-sm font-semibold shadow-sm"
                   placeholder="Örn: ahmet@example.com" />
               </div>
               <div className="flex-grow">
-                <label className="block text-xs font-bold text-black mb-2 tracking-wider uppercase">Mesajınız</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} required
+                <label htmlFor="contact-message" className="block text-xs font-bold text-black mb-2 tracking-wider uppercase">Mesajınız</label>
+                <textarea id="contact-message" name="message" value={formData.message} onChange={handleChange} required maxLength={5000}
                   className="w-full h-[150px] px-4 py-3.5 rounded-xl bg-white/70 border border-black/15 text-black placeholder-black/35 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A] transition-all resize-none text-base md:text-sm font-semibold shadow-sm"
                   placeholder="Projeniz hakkında bize bilgi verin..." />
               </div>
               
+              {/* Bot tuzağı (honeypot): ekran dışında, ekran okuyuculardan ve klavyeden gizli */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+                <label>Web siteniz
+                  <input type="text" name="website" value={formData.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+                </label>
+              </div>
+
+              {/* KVKK aydınlatma bildirimi (aydınlatma için onay kutusu kullanılmaz) */}
+              <p className="text-xs text-[#555555] font-medium leading-relaxed select-text">
+                Kişisel verileriniz{" "}
+                <Link to="/kvkk-aydinlatma-metni" className="text-[#8A6D2E] underline underline-offset-2 hover:text-[#C8A45A]">KVKK Aydınlatma Metni</Link>{" "}
+                kapsamında işlenmektedir.
+              </p>
+
               {/* Gönder Butonu — Ana Sayfayla Uyumlu Altın Buton */}
-              <button type="submit"
-                className="w-full py-4 min-h-[48px] rounded-full text-white bg-[#C8A45A] hover:bg-[#D4B76A] hover:scale-[1.02] active:scale-95 transition-all duration-500 flex items-center justify-center gap-2 mt-auto cursor-pointer border-none font-bold text-sm tracking-widest uppercase shadow-[0_10px_20px_rgba(200,164,90,0.25)]">
-                <Send size={16} /> Gönder
+              <button type="submit" disabled={isSending}
+                className="w-full py-4 min-h-[48px] rounded-full text-white bg-[#C8A45A] hover:bg-[#D4B76A] hover:scale-[1.02] active:scale-95 transition-all duration-500 flex items-center justify-center gap-2 mt-auto cursor-pointer disabled:opacity-60 disabled:cursor-wait border-none font-bold text-sm tracking-widest uppercase shadow-[0_10px_20px_rgba(200,164,90,0.25)]">
+                <Send size={16} /> {isSending ? 'Gönderiliyor…' : 'Gönder'}
               </button>
             </form>
           </motion.div>

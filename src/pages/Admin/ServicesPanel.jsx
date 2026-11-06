@@ -49,11 +49,11 @@ const ServicesPanel = () => {
             }
           ];
           // Seed to backend
-          const token = localStorage.getItem('adminToken');
           for (const item of defaults) {
             await fetch(`${API_BASE_URL}/api/services`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
               body: JSON.stringify(item)
             });
           }
@@ -83,7 +83,6 @@ const ServicesPanel = () => {
     }
 
     setIsSaving(true);
-    const token = localStorage.getItem('adminToken');
     const method = isEditing ? 'PUT' : 'POST';
     const url = isEditing 
       ? `${API_BASE_URL}/api/services/${form.id}` 
@@ -92,7 +91,8 @@ const ServicesPanel = () => {
     try {
       const res = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
         body: JSON.stringify(form)
       });
       if (res.ok) {
@@ -111,11 +111,10 @@ const ServicesPanel = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Bu hizmeti silmek istediğinize emin misiniz?')) return;
-    const token = localStorage.getItem('adminToken');
     try {
       const res = await fetch(`${API_BASE_URL}/api/services/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
+        credentials: 'include'
       });
       if (res.ok) fetchItems();
     } catch (e) {

@@ -2,68 +2,80 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const authMiddleware = require('../middlewares/auth');
+const { setSessionCookie, clearSessionCookie } = authMiddleware;
 const { upload, processMedia } = require('../middlewares/upload');
+const { rateLimit, failedAttemptLimiter, requireHttps } = require('../middlewares/rateLimit');
 
 const prisma = new PrismaClient();
+
+// İç hata ayrıntıları istemciye gönderilmez, yalnızca sunucu loguna yazılır
+const serverError = (res, error) => {
+  console.error(error);
+  res.status(500).json({ message: 'Sunucu hatası oluştu.' });
+};
+
+// Aynı IP'den 15 dakikada en fazla 5 başarısız giriş denemesi
+const loginLimiter = failedAttemptLimiter({ windowMs: 15 * 60 * 1000, max: 5, message: 'Çok fazla başarısız giriş denemesi. Lütfen 15 dakika sonra tekrar deneyin.' });
+const contactLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 5, message: 'Çok fazla mesaj gönderdiniz. Lütfen daha sonra tekrar deneyin.' });
 
 // ==========================================
 // 1. AUTH (GİRİŞ) İŞLEMLERİ
 // ==========================================
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  
+// Kullanıcı adı ve şifre hash'i yalnızca sunucudaki backend/.env dosyasından okunur
+// (ADMIN_USERNAME, ADMIN_PASSWORD_HASH). Hash üretmek için: node scripts/hash-password.js
+const DUMMY_HASH = bcrypt.hashSync(crypto.randomBytes(16).toString('hex'), 12);
+
+// Kullanıcı adını sabit sürede karşılaştır (zamanlama farkından bilgi sızmasın)
+const safeEqual = (a, b) => {
+  const ha = crypto.createHash('sha256').update(String(a)).digest();
+  const hb = crypto.createHash('sha256').update(String(b)).digest();
+  return crypto.timingSafeEqual(ha, hb);
+};
+
+router.post('/login', loginLimiter.check, async (req, res) => {
+  const { username, password } = req.body || {};
+  if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
+    return res.status(400).json({ message: 'Kullanıcı adı ve şifre gereklidir.' });
+  }
+
+  const adminUsername = process.env.ADMIN_USERNAME;
+  const adminHash = process.env.ADMIN_PASSWORD_HASH;
+  if (!adminUsername || !adminHash) {
+    console.error('ADMIN_USERNAME veya ADMIN_PASSWORD_HASH tanımlı değil (backend/.env).');
+    return res.status(503).json({ message: 'Yönetici girişi sunucuda yapılandırılmamış.' });
+  }
+
   try {
-    let admin = await prisma.admin.findUnique({ where: { username } });
-    
-    // Eğer veritabanında bluury admin henüz oluşturulmamışsa otomatik oluştur
-    if (!admin && username === 'bluury' && password === 'bluuryadmin2026!') {
-      const hashedPassword = await bcrypt.hash('bluuryadmin2026!', 10);
-      admin = await prisma.admin.create({
-        data: { username: 'bluury', password: hashedPassword }
-      });
+    const usernameOk = safeEqual(username, adminUsername);
+    // Kullanıcı adı yanlış olsa da bcrypt karşılaştırması yapılır: yanıt süresi kullanıcı adını ele vermez
+    const passwordOk = await bcrypt.compare(password.slice(0, 200), usernameOk ? adminHash : DUMMY_HASH);
+
+    if (!usernameOk || !passwordOk) {
+      loginLimiter.fail(req);
+      return res.status(401).json({ message: 'Kullanıcı adı veya şifre hatalı.' });
     }
 
-    if (!admin) return res.status(404).json({ message: 'Yönetici bulunamadı.' });
-
-    let validPassword = await bcrypt.compare(password, admin.password);
-    
-    // bluury kullanıcısı için şifre güncel değilse otomatik eşitle
-    if (!validPassword && username === 'bluury' && password === 'bluuryadmin2026!') {
-      const hashedPassword = await bcrypt.hash('bluuryadmin2026!', 10);
-      admin = await prisma.admin.update({
-        where: { username: 'bluury' },
-        data: { password: hashedPassword }
-      });
-      validPassword = true;
-    }
-
-    if (!validPassword) return res.status(400).json({ message: 'Hatalı şifre.' });
-
-    const token = jwt.sign({ id: admin.id, username: admin.username }, process.env.JWT_SECRET || 'bluury_secret_key_2026', { expiresIn: '1d' });
-    res.json({ token, username: admin.username });
+    loginLimiter.reset(req);
+    setSessionCookie(res, adminUsername);
+    res.json({ username: adminUsername });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
-// Seed admin (İlk kurulum için)
-router.post('/seed-admin', async (req, res) => {
-  try {
-    const count = await prisma.admin.count();
-    if (count > 0) return res.status(400).json({ message: 'Admin zaten mevcut.' });
-
-    const hashedPassword = await bcrypt.hash('123456', 10);
-    const admin = await prisma.admin.create({
-      data: { username: 'admin', password: hashedPassword }
-    });
-    res.json({ message: 'Admin oluşturuldu: admin / 123456' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+router.post('/logout', (req, res) => {
+  clearSessionCookie(res);
+  res.json({ message: 'Çıkış yapıldı.' });
 });
+
+// Panel açılışında oturumun geçerli olup olmadığını kontrol etmek için
+router.get('/me', authMiddleware, (req, res) => {
+  res.json({ username: req.admin.username });
+});
+
 
 // ==========================================
 // 2. SETTINGS (AYARLAR & BAKIM MODU)
@@ -76,7 +88,7 @@ router.get('/settings', async (req, res) => {
     }
     res.json(settings);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -89,7 +101,7 @@ router.put('/settings', authMiddleware, async (req, res) => {
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -110,7 +122,7 @@ router.get('/portfolio', async (req, res) => {
     const items = await prisma.portfolio.findMany({ orderBy: { orderIndex: 'asc' } });
     res.json(items);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -119,7 +131,7 @@ router.post('/portfolio', authMiddleware, async (req, res) => {
     const item = await prisma.portfolio.create({ data: req.body });
     res.json(item);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -131,7 +143,7 @@ router.put('/portfolio/:id', authMiddleware, async (req, res) => {
     });
     res.json(item);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -140,7 +152,7 @@ router.delete('/portfolio/:id', authMiddleware, async (req, res) => {
     await prisma.portfolio.delete({ where: { id: parseInt(req.params.id) } });
     res.json({ message: 'Silindi' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -152,7 +164,7 @@ router.get('/testimonials', async (req, res) => {
     const items = await prisma.testimonial.findMany({ orderBy: { orderIndex: 'asc' } });
     res.json(items);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -161,7 +173,7 @@ router.post('/testimonials', authMiddleware, async (req, res) => {
     const item = await prisma.testimonial.create({ data: req.body });
     res.json(item);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -173,7 +185,7 @@ router.put('/testimonials/:id', authMiddleware, async (req, res) => {
     });
     res.json(item);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -182,7 +194,7 @@ router.delete('/testimonials/:id', authMiddleware, async (req, res) => {
     await prisma.testimonial.delete({ where: { id: parseInt(req.params.id) } });
     res.json({ message: 'Silindi' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -193,7 +205,7 @@ router.get('/services', async (req, res) => {
     const items = await prisma.service.findMany({ orderBy: { orderIndex: 'asc' } });
     res.json(items);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -202,7 +214,7 @@ router.post('/services', authMiddleware, async (req, res) => {
     const item = await prisma.service.create({ data: req.body });
     res.json(item);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -214,7 +226,7 @@ router.put('/services/:id', authMiddleware, async (req, res) => {
     });
     res.json(item);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -223,7 +235,7 @@ router.delete('/services/:id', authMiddleware, async (req, res) => {
     await prisma.service.delete({ where: { id: parseInt(req.params.id) } });
     res.json({ message: 'Silindi' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -255,7 +267,7 @@ router.get('/hero', async (req, res) => {
     }
     res.json(hero);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -268,7 +280,7 @@ router.put('/hero', authMiddleware, async (req, res) => {
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -290,7 +302,7 @@ router.get('/about', async (req, res) => {
     }
     res.json(about);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -303,7 +315,7 @@ router.put('/about', authMiddleware, async (req, res) => {
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -315,18 +327,38 @@ router.get('/messages', authMiddleware, async (req, res) => {
     const messages = await prisma.message.findMany({ orderBy: { createdAt: 'desc' } });
     res.json(messages);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
-router.post('/messages', async (req, res) => {
+// İletişim formu: yalnızca izin verilen alanlar alınır (veri minimizasyonu), doğrulanır ve spam'e karşı korunur
+const EMAIL_RE = /^[^s@]+@[^s@]+.[^s@]{2,}$/;
+const clean = (value, max) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
+
+router.post('/messages', requireHttps, contactLimiter, async (req, res) => {
+  const { name, email, content, website } = req.body || {};
+
+  // Bot tuzağı (honeypot) doldurulmuşsa kaydetmeden başarılı yanıt dön
+  if (typeof website === 'string' && website.trim() !== '') {
+    return res.json({ message: 'Mesajınız alındı.' });
+  }
+
+  const data = {
+    name: clean(name, 100),
+    email: clean(email, 254).toLowerCase(),
+    content: clean(content, 5000),
+    subject: 'Web Sitesi İletişim Formu Talebi',
+  };
+
+  if (data.name.length < 2) return res.status(400).json({ message: 'Lütfen adınızı ve soyadınızı giriniz.' });
+  if (!EMAIL_RE.test(data.email)) return res.status(400).json({ message: 'Lütfen geçerli bir e-posta adresi giriniz.' });
+  if (data.content.length < 5) return res.status(400).json({ message: 'Lütfen mesajınızı yazınız.' });
+
   try {
-    const message = await prisma.message.create({
-      data: req.body
-    });
-    res.json(message);
+    await prisma.message.create({ data });
+    res.status(201).json({ message: 'Mesajınız alındı.' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -339,7 +371,7 @@ router.put('/messages/:id/read', authMiddleware, async (req, res) => {
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -349,7 +381,7 @@ router.delete('/messages/:id', authMiddleware, async (req, res) => {
     await prisma.message.delete({ where: { id: Number(id) } });
     res.json({ message: 'Mesaj silindi' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -370,7 +402,7 @@ router.get('/stats', authMiddleware, async (req, res) => {
       totalTestimonials
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -421,7 +453,7 @@ router.get('/google-reviews', async (req, res) => {
     }
     res.json(reviews);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -440,7 +472,7 @@ router.post('/google-reviews', authMiddleware, async (req, res) => {
     });
     res.json(review);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -461,7 +493,7 @@ router.put('/google-reviews/:id', authMiddleware, async (req, res) => {
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -476,7 +508,7 @@ router.put('/google-reviews/:id/toggle', authMiddleware, async (req, res) => {
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -486,7 +518,7 @@ router.delete('/google-reviews/:id', authMiddleware, async (req, res) => {
     await prisma.googleReview.delete({ where: { id: Number(id) } });
     res.json({ message: 'Yorum silindi' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -506,7 +538,7 @@ router.get('/google-settings', async (req, res) => {
     }
     res.json(setting);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 
@@ -527,7 +559,7 @@ router.put('/google-settings', authMiddleware, async (req, res) => {
     });
     res.json(updated);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    serverError(res, error);
   }
 });
 

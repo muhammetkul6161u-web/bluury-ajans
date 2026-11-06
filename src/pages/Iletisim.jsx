@@ -5,6 +5,7 @@ import PageTransition from "@/components/PageTransition";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import LightCameraBackground from "@/components/LightCameraBackground";
+import KunyeAccordion from "@/components/KunyeAccordion";
 
 const Iletisim = () => {
   const openWhatsApp = () => {
@@ -48,6 +49,11 @@ const Iletisim = () => {
               </button>
             </motion.div>
           </div>
+        </section>
+
+        {/* Künye (6563 s. Kanun) ve KVKK başvuru bilgileri — varsayılan kapalı akordeon */}
+        <section className="pb-16 md:pb-24 relative z-10">
+          <KunyeAccordion />
         </section>
       </div>
     </PageTransition>

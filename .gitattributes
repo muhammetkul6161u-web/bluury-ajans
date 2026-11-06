@@ -1,0 +1,2 @@
+# Kabuk scriptleri sunucuda (Linux) çalıştığı için her zaman LF satır sonuyla saklanır
+*.sh text eol=lf

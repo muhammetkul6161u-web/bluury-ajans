@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { Instagram, MapPin, Phone, Mail, X } from "lucide-react";
+import { Instagram, MapPin, Phone, Mail } from "lucide-react";
 import { MessageCircle } from "lucide-react";
+import { useConsent } from "@/components/consent/ConsentProvider";
+import { LEGAL_PAGES } from "@/pages/legal/legalInfo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [showKVKK, setShowKVKK] = useState(false);
+  const { openPreferences } = useConsent();
 
   const navLinks = [
     { to: "/", label: "Ana Sayfa" },
@@ -98,43 +99,30 @@ const Footer = () => {
 
           <div className="w-full h-[1px] bg-black/5 mb-6" />
 
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-[#999999] font-light tracking-widest uppercase font-sans">
-              © {currentYear} Bluury Ajans. Tüm hakları saklıdır.
-            </p>
-            <button onClick={() => setShowKVKK(true)}
-              className="text-xs text-[#999999] font-light tracking-widest uppercase hover:text-[#C8A45A] transition-colors cursor-pointer bg-transparent border-none font-sans">
-              KVKK Aydınlatma Metni
-            </button>
-          </div>
+          <nav aria-label="Yasal metinler" className="mb-6">
+            <ul className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-1 list-none p-0 m-0">
+              {LEGAL_PAGES.map((page) => (
+                <li key={page.to}>
+                  <Link to={page.to}
+                    className="text-xs text-[#999999] font-light tracking-wider hover:text-[#C8A45A] transition-colors no-underline font-sans min-h-[44px] inline-flex items-center">
+                    {page.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <button type="button" onClick={openPreferences}
+                  className="text-xs text-[#999999] font-light tracking-wider hover:text-[#C8A45A] transition-colors cursor-pointer bg-transparent border-none p-0 font-sans min-h-[44px] inline-flex items-center">
+                  Çerez Tercihleri
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <p className="text-xs text-[#999999] font-light tracking-widest uppercase font-sans text-center md:text-left">
+            © {currentYear} Bluury Ajans. Tüm hakları saklıdır.
+          </p>
         </div>
       </footer>
-
-      <AnimatePresence>
-        {showKVKK && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
-            onClick={() => setShowKVKK(false)}>
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-[#1A1A1A] border border-[#C8A45A]/20 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative"
-              onClick={(e) => e.stopPropagation()}>
-              <button onClick={() => setShowKVKK(false)}
-                className="absolute top-4 right-4 text-[#999999] hover:text-[#E5E5E5] transition-colors bg-transparent border-none cursor-pointer">
-                <X size={20} />
-              </button>
-              <h3 className="text-2xl text-[#C8A45A] mb-4 font-heading">KVKK Aydınlatma Metni</h3>
-              <div className="text-[#A0A0A0] text-sm font-light leading-relaxed space-y-4 font-sans">
-                <p><strong className="text-[#E5E5E5]">Veri Sorumlusu:</strong> Blurry Ajans, Gazipaşa, Yavuz Selim Blv. No:50 Kat:3 No:16, Trabzon</p>
-                <p>6698 sayılı Kişisel Verilerin Korunması Kanunu uyarınca kişisel verileriniz aşağıda açıklanan kapsamda işlenmektedir.</p>
-                <p><strong className="text-[#E5E5E5]">İşlenen Veriler:</strong> Ad, soyad, e-posta, telefon, mesaj içerikleri.</p>
-                <p><strong className="text-[#E5E5E5]">Amaçlar:</strong> İletişim taleplerinin yanıtlanması, hizmet tekliflerinin sunulması, randevu planlanması.</p>
-                <p><strong className="text-[#E5E5E5]">Hukuki Dayanak:</strong> Sözleşmenin ifası, meşru menfaat ve açık rıza.</p>
-                <p><strong className="text-[#E5E5E5]">Haklarınız:</strong> KVKK m.11 kapsamında erişim, düzeltme, silme ve itiraz haklarına sahipsiniz. info@blurryajans.com</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };

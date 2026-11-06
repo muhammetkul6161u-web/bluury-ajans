@@ -13,9 +13,8 @@ const DashboardOverview = ({ setActiveTab }) => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const token = localStorage.getItem('adminToken');
         const res = await fetch(`${API_BASE_URL}/api/stats`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         });
         const data = await res.json();
         if (res.ok) setStats(data);

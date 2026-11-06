@@ -22,10 +22,9 @@ const VisualUploader = ({
 
     setIsUploading(true);
     try {
-      const token = localStorage.getItem('adminToken');
       const response = await fetch(`${API_BASE_URL}/api/upload`, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
+        credentials: 'include',
         body: formData
       });
 

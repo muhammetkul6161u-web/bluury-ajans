@@ -47,7 +47,6 @@ const GoogleReviewsPanel = () => {
 
   const handleSaveReview = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('adminToken');
     const method = isEditing ? 'PUT' : 'POST';
     const url = isEditing 
       ? `${API_BASE_URL}/api/google-reviews/${form.id}` 
@@ -56,7 +55,8 @@ const GoogleReviewsPanel = () => {
     try {
       const res = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
         body: JSON.stringify(form)
       });
       if (res.ok) {
@@ -71,11 +71,10 @@ const GoogleReviewsPanel = () => {
   };
 
   const handleToggleVisibility = async (id) => {
-    const token = localStorage.getItem('adminToken');
     try {
       const res = await fetch(`${API_BASE_URL}/api/google-reviews/${id}/toggle`, {
         method: 'PUT',
-        headers: { 'Authorization': `Bearer ${token}` }
+        credentials: 'include'
       });
       if (res.ok) fetchData();
     } catch (err) {
@@ -85,11 +84,10 @@ const GoogleReviewsPanel = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Bu Google yorumunu silmek istediğinize emin misiniz?')) return;
-    const token = localStorage.getItem('adminToken');
     try {
       const res = await fetch(`${API_BASE_URL}/api/google-reviews/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
+        credentials: 'include'
       });
       if (res.ok) fetchData();
     } catch (err) {
@@ -99,11 +97,11 @@ const GoogleReviewsPanel = () => {
 
   const handleSaveSettings = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('adminToken');
     try {
       const res = await fetch(`${API_BASE_URL}/api/google-settings`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
         body: JSON.stringify(settings)
       });
       if (res.ok) {

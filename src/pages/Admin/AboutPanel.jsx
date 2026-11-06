@@ -73,8 +73,6 @@ const AboutPanel = () => {
     e.preventDefault();
     setIsSaving(true);
     setSaveSuccess(false);
-    const token = localStorage.getItem('adminToken');
-
     try {
       const payload = {
         ...aboutData,
@@ -84,9 +82,9 @@ const AboutPanel = () => {
       const res = await fetch(`${API_BASE_URL}/api/about`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(payload)
       });
 

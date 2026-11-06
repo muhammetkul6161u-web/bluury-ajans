@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { API_BASE_URL, getMediaUrl } from "@/config/api";
+import { useConsent } from "@/components/consent/ConsentProvider";
+import { toPrivacyEmbedUrl } from "@/lib/consent";
 
 const Hero = () => {
+  const { hasConsent } = useConsent();
   const [heroData, setHeroData] = useState({
     title: "Anıların Işığında <br /> Profesyonel Çekimler",
     subtitle: "Her karede duyguyu, hikâyeyi ve zamanı yakalıyoruz. Moda, etkinlik, ürün ve portre çekimlerinde estetik bakış açısıyla markanıza değer katarız.",
@@ -40,13 +43,18 @@ const Hero = () => {
       {/* Background Media */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {heroData.isEmbed ? (
+          // 3. taraf arka plan videosu yalnızca işlevsel çerez onayı varsa yüklenir
+          hasConsent("islevsel") ? (
           <iframe
-            src={heroData.mediaUrl}
+            src={toPrivacyEmbedUrl(heroData.mediaUrl)}
             className="w-full h-full object-cover pointer-events-none opacity-80"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             title="Hero Video"
           />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-b from-[#1A1A1A] via-black to-[#1A1A1A]" />
+          )
         ) : isVideoMedia ? (
           <video
             src={getMediaUrl(heroData.mediaUrl)}

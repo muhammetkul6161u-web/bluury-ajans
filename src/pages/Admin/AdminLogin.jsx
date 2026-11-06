@@ -19,13 +19,15 @@ const AdminLogin = () => {
       const response = await fetch(`${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // oturum httpOnly çerezle tutulur
         body: JSON.stringify({ username, password })
       });
 
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem('adminToken', data.token);
-        localStorage.setItem('adminUsername', data.username);
+        // Eski sürümden kalmış olabilecek token kayıtlarını temizle
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('adminUsername');
         navigate('/admin/dashboard');
       } else {
         setError(data.message || 'Giriş başarısız. Lütfen bilgileri kontrol edin.');
@@ -73,7 +75,7 @@ const AdminLogin = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A]/50 transition-all duration-300"
-                placeholder="bluury"
+                placeholder="Kullanıcı adı" autoComplete="username"
                 required
               />
             </div>
@@ -82,6 +84,7 @@ const AdminLogin = () => {
               <label className="text-xs font-semibold text-white/50 uppercase tracking-wider pl-1">Şifre</label>
               <input
                 type="password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-[#C8A45A] focus:ring-1 focus:ring-[#C8A45A]/50 transition-all duration-300"

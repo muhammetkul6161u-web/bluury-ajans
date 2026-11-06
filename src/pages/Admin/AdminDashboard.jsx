@@ -26,22 +26,26 @@ import TestimonialsPanel from './TestimonialsPanel';
 import MessagesPanel from './MessagesPanel';
 import GoogleReviewsPanel from './GoogleReviewsPanel';
 import SettingsPanel from './SettingsPanel';
+import { API_BASE_URL } from '@/config/api';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  // Oturum httpOnly çerezde: geçerliliğini sunucuya sor, değilse girişe yönlendir
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      navigate('/admin/login');
-    }
+    fetch(`${API_BASE_URL}/api/me`, { credentials: 'include' })
+      .then(res => { if (!res.ok) navigate('/admin/login'); })
+      .catch(() => navigate('/admin/login'));
   }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUsername');
+  const handleLogout = async () => {
+    try {
+      await fetch(`${API_BASE_URL}/api/logout`, { method: 'POST', credentials: 'include' });
+    } catch (e) {
+      console.error(e);
+    }
     navigate('/admin/login');
   };
 

@@ -91,13 +91,19 @@ EXIT;
 ```bash
 nano /var/www/bluuryajans.com/backend/.env
 ```
-İçerisine sunucu bilgilerinizi yapıştırın (CTRL+O -> Enter -> CTRL+X ile kaydedin):
+İçerisine sunucu bilgilerinizi yapıştırın (CTRL+O -> Enter -> CTRL+X ile kaydedin). Tüm alanlar için `backend/.env.example` dosyasına bakın:
 ```env
 PORT=5000
 DATABASE_URL="mysql://root:MYSQL_SIFRENIZ@localhost:3306/bluury_db"
-JWT_SECRET="bluury_super_secret_jwt_key_2026_luxury"
-CLIENT_URL="https://bluuryajans.com"
+# Rastgele üretin: node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+JWT_SECRET="RASTGELE_URETILMIS_UZUN_DEGER"
+CLIENT_URL="https://blurryajans.com"
+ADMIN_USERNAME="YONETICI_KULLANICI_ADI"
+ADMIN_PASSWORD_HASH='node scripts/hash-password.js ÇIKTISI'
+SESSION_HOURS=2
+MESSAGE_RETENTION_DAYS=365
 ```
+`.env` dosyası git'e eklenmez; yalnızca sunucuda durur.
 
 ---
 
@@ -112,8 +118,9 @@ npm install
 npx prisma generate
 npx prisma db push
 
-# İlk Admin kullanıcısını ve örnek verileri tohumlayın (Seed)
-node seed.js
+# Yönetici şifresinin hash'ini üretin ve backend/.env'e ADMIN_PASSWORD_HASH='...' olarak ekleyin
+# (ADMIN_USERNAME da .env'de olmalı; şifre hiçbir dosyaya düz metin yazılmaz)
+cd /var/www/bluuryajans.com && node scripts/hash-password.js && cd backend
 
 # PM2 ile backend'i arka planda başlatın
 cd /var/www/bluuryajans.com
@@ -179,5 +186,4 @@ Artık bilgisayarınızda bir satır kod değiştirip `git push` yaptığınız 
 Artık siteniz Vercel'den tamamen bağımsız, kendi Hostinger VPS sunucunuzda, ultra hızlı ve tam donanımlı olarak yayında:
 * **Canlı Site:** `https://blurryajans.com`
 * **Admin Paneli:** `https://blurryajans.com/admin/login`
-  * **Kullanıcı Adı:** `bluury`
-  * **Şifre:** `bluuryadmin2026!`
+  * **Giriş bilgileri:** sunucudaki `backend/.env` dosyasındaki `ADMIN_USERNAME` ve `node scripts/hash-password.js` ile hash'i üretilen şifre (hiçbir dosyada düz metin tutulmaz)

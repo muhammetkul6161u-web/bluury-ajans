@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Play } from "lucide-react";
 import DecoratedHeading from "@/components/DecoratedHeading";
 import { API_BASE_URL, getMediaUrl } from "@/config/api";
+import { useConsent } from "@/components/consent/ConsentProvider";
+import ConsentGate from "@/components/consent/ConsentGate";
+import { toPrivacyEmbedUrl, embedProviderName } from "@/lib/consent";
 
 const REVIEWS = [
   {
@@ -28,6 +31,7 @@ const REVIEWS = [
 const ReviewCard = ({ review, idx, setSelectedReview }) => {
   const videoRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+  const { hasConsent } = useConsent();
 
   useEffect(() => {
     if (!videoRef.current || review.embedUrl) return;
@@ -52,13 +56,18 @@ const ReviewCard = ({ review, idx, setSelectedReview }) => {
     >
       {/* Arka Plan Video Döngüsü */}
       {review.embedUrl ? (
+        // Kart önizlemesi: onay yoksa 3. taraf iframe yüklenmez, tıklayınca açılan pencerede sorulur
+        hasConsent("islevsel") ? (
         <iframe
-          src={review.embedUrl}
+          src={toPrivacyEmbedUrl(review.embedUrl)}
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform [transition-duration:6000ms] ease-out pointer-events-none opacity-80 group-hover:opacity-100"
           frameBorder="0"
           allow="autoplay; encrypted-media"
           title="Video Review"
         />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#2A2A2A] via-[#1A1A1A] to-black" />
+        )
       ) : (
         <video
           ref={videoRef}
@@ -205,14 +214,20 @@ const Testimonials = () => {
               className="relative w-full max-w-md aspect-[9/16] md:max-h-[85vh] overflow-hidden rounded-3xl border border-[#C8A45A]/30 bg-black shadow-2xl"
             >
               {selectedReview.embedUrl ? (
-                <iframe
-                  src={selectedReview.embedUrl}
-                  className="w-full h-full object-cover"
-                  frameBorder="0"
-                  allow="autoplay; encrypted-media; fullscreen"
-                  title="Review Fullscreen"
-                  allowFullScreen
-                />
+                <ConsentGate
+                  provider={embedProviderName(selectedReview.embedUrl)}
+                  loadLabel="Videoyu yükle"
+                  placeholder={<div className="absolute inset-0 bg-gradient-to-br from-[#2A2A2A] via-[#1A1A1A] to-black" />}
+                >
+                  <iframe
+                    src={toPrivacyEmbedUrl(selectedReview.embedUrl)}
+                    className="w-full h-full object-cover"
+                    frameBorder="0"
+                    allow="autoplay; encrypted-media; fullscreen"
+                    title="Review Fullscreen"
+                    allowFullScreen
+                  />
+                </ConsentGate>
               ) : (
                 <video
                   src={getMediaUrl(selectedReview.mediaUrl)}

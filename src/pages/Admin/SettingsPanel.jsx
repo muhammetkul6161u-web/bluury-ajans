@@ -39,15 +39,13 @@ const SettingsPanel = () => {
     e.preventDefault();
     setIsSaving(true);
     setSaveSuccess(false);
-    const token = localStorage.getItem('adminToken');
-
     try {
       const res = await fetch(`${API_BASE_URL}/api/settings`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(settings)
       });
       if (res.ok) {

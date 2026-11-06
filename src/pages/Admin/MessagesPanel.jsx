@@ -9,9 +9,8 @@ const MessagesPanel = () => {
 
   const fetchMessages = async () => {
     try {
-      const token = localStorage.getItem('adminToken');
       const res = await fetch(`${API_BASE_URL}/api/messages`, {
-        headers: { 'Authorization': `Bearer ${token}` }
+        credentials: 'include'
       });
       const data = await res.json();
       if (res.ok) setMessages(data);
@@ -27,11 +26,10 @@ const MessagesPanel = () => {
   }, []);
 
   const handleMarkAsRead = async (id) => {
-    const token = localStorage.getItem('adminToken');
     try {
       await fetch(`${API_BASE_URL}/api/messages/${id}/read`, {
         method: 'PUT',
-        headers: { 'Authorization': `Bearer ${token}` }
+        credentials: 'include'
       });
       fetchMessages();
     } catch (e) {
@@ -41,11 +39,10 @@ const MessagesPanel = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Bu mesajı kalıcı olarak silmek istediğinize emin misiniz?')) return;
-    const token = localStorage.getItem('adminToken');
     try {
       const res = await fetch(`${API_BASE_URL}/api/messages/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
+        credentials: 'include'
       });
       if (res.ok) {
         if (selectedMessage && selectedMessage.id === id) setSelectedMessage(null);
