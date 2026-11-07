@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { Instagram, MapPin, Phone, Mail } from "lucide-react";
 import { MessageCircle } from "lucide-react";
 import { useConsent } from "@/components/consent/ConsentProvider";
 import { LEGAL_PAGES } from "@/pages/legal/legalInfo";
+import KvkkModal from "@/components/KvkkModal";
+
+const legalLinkClass =
+  "text-xs text-[#999999] font-light tracking-wider hover:text-[#C8A45A] transition-colors no-underline font-sans min-h-[44px] inline-flex items-center";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { openPreferences } = useConsent();
+  const [showKvkk, setShowKvkk] = useState(false);
 
   const navLinks = [
     { to: "/", label: "Ana Sayfa" },
@@ -103,10 +109,17 @@ const Footer = () => {
             <ul className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-1 list-none p-0 m-0">
               {LEGAL_PAGES.map((page) => (
                 <li key={page.to}>
-                  <Link to={page.to}
-                    className="text-xs text-[#999999] font-light tracking-wider hover:text-[#C8A45A] transition-colors no-underline font-sans min-h-[44px] inline-flex items-center">
-                    {page.label}
-                  </Link>
+                  {page.to === "/kvkk-aydinlatma-metni" ? (
+                    // KVKK metni sayfadan ayrılmadan, tıklanınca açılan pencerede gösterilir
+                    <button type="button" onClick={() => setShowKvkk(true)} aria-haspopup="dialog"
+                      className={`${legalLinkClass} cursor-pointer bg-transparent border-none p-0`}>
+                      {page.label}
+                    </button>
+                  ) : (
+                    <Link to={page.to} className={legalLinkClass}>
+                      {page.label}
+                    </Link>
+                  )}
                 </li>
               ))}
               <li>
@@ -123,6 +136,10 @@ const Footer = () => {
           </p>
         </div>
       </footer>
+
+      <AnimatePresence>
+        {showKvkk && <KvkkModal key="kvkk" onClose={() => setShowKvkk(false)} />}
+      </AnimatePresence>
     </>
   );
 };

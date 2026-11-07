@@ -59,7 +59,7 @@ const GizlilikPolitikasi = () => (
     <h2>6. İletişim</h2>
     <p>
       Gizlilikle ilgili sorularınız ve KVKK kapsamındaki başvurularınız için:{" "}
-      <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a> ({LEGAL.kvkkEmail}). Başvuru yöntemleri için{" "}
+      <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a>. Başvuru yöntemleri için{" "}
       <Link to="/kvkk-aydinlatma-metni">KVKK Aydınlatma Metni</Link>'nin 8. bölümüne bakınız.
     </p>
   </LegalLayout>

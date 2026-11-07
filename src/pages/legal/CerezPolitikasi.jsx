@@ -53,7 +53,7 @@ const CerezPolitikasi = () => {
       description="Bluury Ajans web sitesinde kullanılan çerezler, türleri, sağlayıcıları, süreleri ve çerez tercihlerinizi nasıl yönetebileceğiniz."
     >
       <p>
-        Bu politika, {LEGAL.controller} ("{LEGAL.brand}") tarafından işletilen {LEGAL.domain} sitesinde kullanılan
+        Bu politika, {LEGAL.controller} tarafından işletilen {LEGAL.domain} sitesinde kullanılan
         çerezler ve benzeri teknolojiler hakkında, KVK Kurulu'nun Çerez Uygulamaları Hakkında Rehberi esas alınarak
         hazırlanmıştır. Politika sürümü: <strong>{POLICY_VERSION}</strong>.
       </p>

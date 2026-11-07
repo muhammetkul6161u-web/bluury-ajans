@@ -227,6 +227,6 @@ a { text-decoration: none; }
   .legal-prose dd { margin-bottom: 0.6rem; }
 }
 
-/* ── Künye akordeonu: varsayılan details işaretini gizle ── */
-.kunye-accordion > summary { list-style: none; }
-.kunye-accordion > summary::-webkit-details-marker { display: none; }
+/* ── KVKK akordeonu: varsayılan details işaretini gizle ── */
+.kvkk-accordion > summary { list-style: none; }
+.kvkk-accordion > summary::-webkit-details-marker { display: none; }

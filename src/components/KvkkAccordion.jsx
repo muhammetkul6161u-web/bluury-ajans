@@ -1,18 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
-import { KunyeBilgileri } from "@/pages/legal/Kunye";
-import { LEGAL } from "@/pages/legal/legalInfo";
+import KvkkAydinlatmaIcerik from "@/pages/legal/KvkkAydinlatmaIcerik";
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Künye (6563 s. Kanun) ve KVKK başvuru bilgileri — native <details>/<summary> akordeon.
+ * KVKK Aydınlatma Metni — native <details>/<summary> akordeon (varsayılan kapalı).
  * Kapalıyken de içerik DOM'da durur (arama motorları ve ekran okuyucular erişebilir); JS olmadan da açılıp kapanır.
- * JS yalnızca yükseklik + opacity animasyonu ve #kunye ile gelindiğinde otomatik açma için kullanılır.
+ * JS yalnızca yükseklik + opacity animasyonu ve #kvkk / #kunye ile gelindiğinde otomatik açma için kullanılır.
  */
-const KunyeAccordion = () => {
+const KvkkAccordion = () => {
   const detailsRef = useRef(null);
   const contentRef = useRef(null);
   const animationRef = useRef(null);
@@ -62,9 +61,9 @@ const KunyeAccordion = () => {
     if (!animationRef.current) setOpen(detailsRef.current.open);
   };
 
-  // /iletisim#kunye ile gelindiğinde aç ve kaydır (sayfa geçişi ve ScrollToTop bittikten sonra)
+  // /iletisim#kvkk (veya eski #kunye) ile gelindiğinde aç ve kaydır (sayfa geçişi ve ScrollToTop bittikten sonra)
   useEffect(() => {
-    if (hash !== "#kunye") return;
+    if (hash !== "#kvkk" && hash !== "#kunye") return;
     const timer = setTimeout(() => {
       animateTo(true);
       detailsRef.current?.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
@@ -74,17 +73,17 @@ const KunyeAccordion = () => {
 
   return (
     <details
-      id="kunye"
+      id="kvkk"
       ref={detailsRef}
       onToggle={handleToggle}
-      className="kunye-accordion group/kunye max-w-4xl mx-4 sm:mx-auto bg-[#FAFAF8]/95 border border-[#C8A45A]/30 hover:border-[#C8A45A]/60 open:border-[#C8A45A]/45 rounded-2xl shadow-[0_10px_30px_rgba(200,164,90,0.06)] transition-colors duration-300 scroll-mt-28"
+      className="kvkk-accordion group/kvkk max-w-4xl mx-4 sm:mx-auto bg-[#FAFAF8]/95 border border-[#C8A45A]/30 hover:border-[#C8A45A]/60 open:border-[#C8A45A]/45 rounded-2xl shadow-[0_10px_30px_rgba(200,164,90,0.06)] transition-colors duration-300 scroll-mt-28"
     >
       <summary
         onClick={handleSummaryClick}
         className="flex items-center justify-between gap-4 px-5 sm:px-8 py-4 min-h-[56px] cursor-pointer select-none rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A45A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#D6D6D6]"
       >
-        <h2 className="font-heading text-base sm:text-lg font-bold text-[#1A1A1A] group-hover/kunye:text-[#8A6D2E] transition-colors duration-300 m-0">
-          Künye ve KVKK Başvuruları
+        <h2 className="font-heading text-base sm:text-lg font-bold text-[#1A1A1A] group-hover/kvkk:text-[#8A6D2E] transition-colors duration-300 m-0">
+          KVKK Aydınlatma Metni
         </h2>
         <ChevronDown
           size={20}
@@ -94,13 +93,10 @@ const KunyeAccordion = () => {
       </summary>
 
       <div ref={contentRef}>
-        <div className="legal-prose px-5 sm:px-8 pb-7 pt-1 border-t border-[#C8A45A]/20 select-text">
-          <div className="pt-5">
-            <KunyeBilgileri />
-          </div>
+        <div className="legal-prose px-5 sm:px-8 pb-7 pt-5 border-t border-[#C8A45A]/20 select-text">
+          <KvkkAydinlatmaIcerik />
           <p style={{ marginBottom: 0 }}>
-            KVKK m.11 kapsamındaki başvurularınızı {LEGAL.kvkkEmail} adresine veya{" "}
-            <Link to="/kvkk-aydinlatma-metni">KVKK Aydınlatma Metni</Link>'nde belirtilen diğer yollarla iletebilirsiniz.
+            <Link to="/kvkk-aydinlatma-metni">Metni ayrı sayfada aç</Link>
           </p>
         </div>
       </div>
@@ -108,4 +104,4 @@ const KunyeAccordion = () => {
   );
 };
 
-export default KunyeAccordion;
+export default KvkkAccordion;

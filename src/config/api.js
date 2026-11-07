@@ -15,6 +15,8 @@ export const getMediaUrl = (url) => {
   if (import.meta.env.PROD) {
     return cleanUrl; // Nginx /uploads ve statik dosyaları doğrudan karşılar
   }
-  
-  return `http://localhost:5000${cleanUrl}`;
+
+  // Geliştirmede yalnızca yüklenen medya (/uploads) backend'den gelir;
+  // public/ klasöründeki dosyaları (ör. /ana sayfa/gözdevideo.mp4) Vite sunar.
+  return cleanUrl.startsWith('/uploads/') ? `http://localhost:5000${cleanUrl}` : cleanUrl;
 };

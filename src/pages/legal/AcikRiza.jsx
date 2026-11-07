@@ -15,7 +15,7 @@ const AcikRiza = () => {
     >
       <p>
         Bu metin, <Link to="/kvkk-aydinlatma-metni">KVKK Aydınlatma Metni</Link>'nden ayrı olarak, {LEGAL.controller}{" "}
-        ("{LEGAL.brand}") tarafından <strong>yalnızca açık rızanıza dayanılarak</strong> yürütülen işlemleri açıklar.
+        tarafından <strong>yalnızca açık rızanıza dayanılarak</strong> yürütülen işlemleri açıklar.
         Rıza vermek tamamen isteğe bağlıdır. Rıza vermemeniz sitemizi kullanmanıza, bize ulaşmanıza veya hizmet
         almanıza engel değildir.
       </p>

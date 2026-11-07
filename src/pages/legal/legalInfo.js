@@ -1,28 +1,28 @@
 // Yasal metinlerde kullanılan tüm işletme bilgileri tek yerde.
-// [KÖŞELİ_PARANTEZ] içindeki her değeri gerçek bilgiyle değiştirin; bilgi yoksa ilgili satırı metinden kaldırın.
-// Adres, telefon ve e-posta sitede halihazırda yayımlanan iletişim bilgilerinden alınmıştır; doğruluğunu teyit edin.
+// null olan alanlar sayfalarda gösterilmez; bilgi netleşince değeri yazmanız yeterli.
+// Adres, telefon ve e-posta sitede halihazırda yayımlanan iletişim bilgilerinden alınmıştır.
 
 export const LEGAL = {
-  lastUpdated: "[TARİH]",
+  lastUpdated: "7 Kasım 2026",
   brand: "Bluury Ajans",
-  controller: "[AD SOYAD / UNVAN]",
+  controller: "Bluury Ajans", // resmi ad soyad / unvan netleşince buraya yazın
   address: "Gazipaşa, Yavuz Selim Blv. No:50 Kat:3 No:16, 61030 Ortahisar / Trabzon",
   phone: "0536 496 56 98",
   phoneHref: "tel:+905364965698",
   email: "info@blurryajans.com",
-  kvkkEmail: "[KVKK_BAŞVURU_E-POSTASI]",
-  kep: "[KEP ADRESİ – varsa]",
-  tax: "[VERGİ DAİRESİ / VERGİ NUMARASI]",
-  mersis: "[MERSİS NO – şirketse]",
-  tradeRegistry: "[TİCARET SİCİL NO – şirketse]",
-  chamber: "[BAĞLI OLUNAN MESLEK ODASI / BİRLİK – varsa]",
+  kvkkEmail: "info@blurryajans.com",
+  kep: null,
+  tax: null,
+  mersis: null,
+  tradeRegistry: null,
+  chamber: null,
   domain: "blurryajans.com",
-  hostingProvider: "Hostinger ([HOSTINGER_SÖZLEŞME_TARAFI_ŞİRKET_UNVANI])",
+  hostingProvider: "Hostinger",
   hostingCountry: "Almanya (Frankfurt)",
-  emailProvider: "[E-POSTA_HİZMET_SAĞLAYICISI ve ÜLKESİ]",
-  cdnProvider: "[CLOUDFLARE KULLANILIYORSA: Cloudflare, Inc. (ABD) – kullanılmıyorsa bu satırı kaldırın]",
-  messageRetention: "[SÜRE, ör. talebin sonuçlanmasından itibaren 1 yıl]",
-  logRetention: "[SÜRE, ör. 6 ay]",
+  emailProvider: null,
+  cdnProvider: null,
+  messageRetention: "1 yıl (süre sonunda otomatik olarak silinir)",
+  logRetention: "güvenlik amacıyla gerekli olan kısa süre boyunca",
 };
 
 export const LEGAL_PAGES = [
