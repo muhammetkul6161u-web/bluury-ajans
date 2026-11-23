@@ -15,10 +15,10 @@ const Iletisim = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>İletişim — Bluury Ajans | Trabzon'da Fotoğraf Çekimi Randevusu</title>
-        <meta name="description" content="Bluury Ajans ile iletişime geçin. Trabzon'da düğün, moda ve ürün çekimi için profesyonel randevu alın." />
-        <meta property="og:title" content="İletişim — Bluury Ajans" />
-        <meta property="og:description" content="Bluury Ajans ile iletişime geçin. Trabzon'da profesyonel fotoğraf çekimi randevusu alın." />
+        <title>İletişim & Randevu — Bluury Ajans | Trabzon Fotoğrafçı (Ortahisar / Gazipaşa)</title>
+        <meta name="description" content="Bluury Ajans ile iletişime geçin. Trabzon Ortahisar Gazipaşa'daki fotoğraf stüdyomuzda düğün, dış çekim, nişan, ürün ve reklam çekimi için randevu ve fiyat teklifi alın." />
+        <meta property="og:title" content="İletişim & Randevu — Bluury Ajans | Trabzon Fotoğrafçı" />
+        <meta property="og:description" content="Trabzon'da profesyonel fotoğraf ve video çekimi randevusu alın. Adres: Gazipaşa, Yavuz Selim Blv. No:50 Ortahisar/Trabzon." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blurryajans.com/iletisim" />
         <meta name="robots" content="index, follow" />

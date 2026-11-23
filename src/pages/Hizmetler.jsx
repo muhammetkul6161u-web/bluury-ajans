@@ -37,24 +37,38 @@ const Hizmetler = () => {
   ];
 
   const faqs = [
-    { q: "Çekim için nasıl randevu alabilirim?", a: "WhatsApp üzerinden bize yazarak veya iletişim formunu doldurarak hemen randevu oluşturabilirsiniz." },
-    { q: "Çekim süreleri ne kadar?", a: "Çekim süreleri projenizin kapsamına ve ihtiyaçlarınıza göre özel olarak belirlenmektedir." },
-    { q: "Fotoğraflar ne zaman teslim edilir?", a: "Düzenleme süreci dahil genellikle 7-14 iş günü içinde tüm fotoğraflarınız yüksek çözünürlüklü dijital olarak teslim edilir." },
-    { q: "Çekim lokasyonu konusunda yardımcı oluyor musunuz?", a: "Evet! Çekiminizin konseptine uygun olarak en zarif ve şık mekanları birlikte seçebiliriz." },
-    { q: "Hizmetlerinizi nasıl şekillendiriyorsunuz?", a: "İhtiyacınıza ve bütçenize göre tamamen size özel ve benzersiz çekim konseptleri tasarlayabiliriz." },
+    { q: "Trabzon'da fotoğraf çekimi için nasıl randevu alabilirim?", a: "WhatsApp hattımız (+90 536 496 56 98) üzerinden bize yazarak, iletişim formunu doldurarak veya Ortahisar Gazipaşa'daki ofisimizi ziyaret ederek hemen çekim randevusu oluşturabilirsiniz." },
+    { q: "Trabzon düğün ve dış çekim lokasyonları nerelerdir?", a: "Çekim konseptinize göre Boztepe, Uzungöl, Sümela Manastırı, Akçaabat Orta Mahalle, Ganita, KTÜ Kampüsü, Hıdırnebi ve Kayabaşı yaylaları başta olmak üzere tüm Trabzon ve Karadeniz genelinde çekim yapıyoruz." },
+    { q: "Düğün, dış çekim veya kurumsal çekim süreleri ne kadar?", a: "Dış mekan fotoğraf çekimleri ortalama 2-4 saat, düğün hikayesi ve klip çekimleri tam gün, kurumsal ürün ve reklam çekimleri ise projenizin kapsamına göre özel olarak planlanmaktadır." },
+    { q: "Fotoğraflar ve videolar ne zaman teslim edilir?", a: "Profesyonel renk düzenlemesi (color grading) ve retouch süreci dahil genellikle 7-14 iş günü içinde tüm fotoğraflarınız ve videolarınız yüksek çözünürlüklü dijital olarak teslim edilir." },
+    { q: "Trabzon'da işletmeler için ürün, menü ve sosyal medya çekimi yapıyor musunuz?", a: "Evet! E-ticaret markaları, restoranlar, kafeler, oteller ve kurumsal firmalar için yüksek çözünürlüklü ürün fotoğrafçılığı, katalog çekimi ve Instagram Reels / tanıtım filmi prodüksiyonu sunuyoruz." },
   ];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.a,
+      },
+    })),
+  };
 
   return (
     <PageTransition>
       <Helmet>
-        <title>Hizmetlerimiz — Bluury Ajans | Düğün, Moda ve Reklam Çekimleri</title>
-        <meta name="description" content="Düğün, moda, ürün ve reklam çekimi hizmetlerimizi keşfedin. Profesyonel ve zarif fotoğrafçılık hizmetleri." />
-        <meta property="og:title" content="Hizmetlerimiz — Bluury Ajans" />
-        <meta property="og:description" content="Düğün, moda, ürün ve reklam çekimi hizmetlerimizi keşfedin. Profesyonel fotoğrafçılık." />
+        <title>Trabzon Fotoğraf Çekimi Hizmetleri — Düğün, Dış Çekim, Ürün & Reklam | Bluury Ajans</title>
+        <meta name="description" content="Trabzon'da profesyonel fotoğraf ve video çekimi hizmetlerimiz: Düğün fotoğrafçılığı, dış mekan çekimi, nişan, ürün, katalog, kurumsal reklam ve after party çekimleri." />
+        <meta property="og:title" content="Trabzon Fotoğraf Çekimi Hizmetleri — Bluury Ajans" />
+        <meta property="og:description" content="Trabzon düğün, dış çekim, moda, ürün ve reklam çekimi hizmetlerimizi keşfedin. Profesyonel fotoğrafçılık ajansı." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blurryajans.com/hizmetler" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://blurryajans.com/hizmetler" />
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
       <div className="relative z-10 bg-[#D6D6D6] overflow-hidden pt-20">

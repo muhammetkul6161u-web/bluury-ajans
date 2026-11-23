@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Home } from "lucide-react";
@@ -6,6 +7,10 @@ import { Home } from "lucide-react";
 const NotFound = () => {
   return (
     <div className="relative min-h-screen bg-[#FAFAF8] flex flex-col items-center justify-center px-6 text-center overflow-hidden">
+      <Helmet>
+        <title>Sayfa Bulunamadı (404) — Bluury Ajans</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}

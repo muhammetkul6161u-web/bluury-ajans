@@ -70,14 +70,17 @@ const Footer = () => {
 
             <div>
               <h4 className="text-lg font-medium text-[#E5E5E5] uppercase tracking-widest mb-6 font-heading">Keşfet</h4>
-              <nav aria-label="Footer navigasyon menüsü" className="flex flex-col gap-4">
+              <nav aria-label="Footer navigasyon menüsü" className="flex flex-col gap-3">
                 {navLinks.map((link) => (
                   <Link key={link.to} to={link.to}
-                    className="text-[#777777] hover:text-[#C8A45A] text-sm font-light tracking-wide transition-colors duration-300 no-underline font-sans min-h-[44px] flex items-center">
+                    className="text-[#777777] hover:text-[#C8A45A] text-sm font-light tracking-wide transition-colors duration-300 no-underline font-sans min-h-[38px] flex items-center">
                     {link.label}
                   </Link>
                 ))}
               </nav>
+              <p className="text-[#666666] text-xs font-light leading-relaxed mt-5 font-sans">
+                Hizmet Bölgelerimiz: Trabzon (Ortahisar, Akçaabat, Yomra, Maçka, Uzungöl / Çaykara, Sürmene, Of, Vakfıkebir, Beşikdüzü), Rize ve Giresun.
+              </p>
             </div>
 
             <div>

@@ -1,62 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://blurryajans.com/</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://blurryajans.com/portfolyo</loc>
-    <lastmod>2026-10-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://blurryajans.com/Navbar/Navbar.webp</image:loc>
+      <image:title>Bluury Ajans — Trabzon Profesyonel Fotoğrafçılık ve Çekim Ajansı</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://blurryajans.com/ana%20sayfa/d%C3%BC%C4%9F%C3%BCnresim.webp</image:loc>
+      <image:title>Trabzon Düğün ve Nişan Fotoğraf Çekimi - Bluury Ajans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://blurryajans.com/ana%20sayfa/d%C4%B1%C5%9Fresim.webp</image:loc>
+      <image:title>Trabzon Dış Mekan ve Doğa Fotoğraf Çekimi - Bluury Ajans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://blurryajans.com/ana%20sayfa/reklamresim.webp</image:loc>
+      <image:title>Trabzon Ürün ve Kurumsal Reklam Fotoğraf Çekimi - Bluury Ajans</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://blurryajans.com/hizmetler</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://blurryajans.com/hizmet-gorselleri/d%C3%BC%C4%9F%C3%BCnhz.webp</image:loc>
+      <image:title>Trabzon Düğün Fotoğrafçısı Hizmeti - Bluury Ajans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://blurryajans.com/hizmet-gorselleri/d%C4%B1%C5%9Fhz.webp</image:loc>
+      <image:title>Trabzon Dış Çekim Fotoğrafçılığı - Bluury Ajans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://blurryajans.com/hizmet-gorselleri/%C3%BCr%C3%BCnhz.webp</image:loc>
+      <image:title>Trabzon Ürün ve Katalog Çekimi - Bluury Ajans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://blurryajans.com/hizmet-gorselleri/reklamhz.webp</image:loc>
+      <image:title>Trabzon Kurumsal Reklam ve Tanıtım Çekimi - Bluury Ajans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://blurryajans.com/portfolyo</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://blurryajans.com/Portfoy/Dugun/dugun1.webp</image:loc>
+      <image:title>Trabzon Düğün Hikayesi ve Gelin Damat Dış Çekimi - Bluury Ajans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://blurryajans.com/Portfoy/D%C4%B1%C5%9F/d%C4%B1%C5%9F1.webp</image:loc>
+      <image:title>Trabzon Boztepe ve Uzungöl Dış Mekan Çekimi - Bluury Ajans</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://blurryajans.com/katolog/katolog1.webp</image:loc>
+      <image:title>Trabzon Moda, Ürün ve Katalog Fotoğraf Çekimi - Bluury Ajans</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://blurryajans.com/hakkimizda</loc>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://blurryajans.com/hakkimizda</loc>
-    <lastmod>2026-10-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://blurryajans.com/iletisim</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://blurryajans.com/kvkk-aydinlatma-metni</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://blurryajans.com/acik-riza-metni</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://blurryajans.com/cerez-politikasi</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://blurryajans.com/gizlilik-politikasi</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://blurryajans.com/kunye</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

@@ -8,8 +8,8 @@ import { toPrivacyEmbedUrl } from "@/lib/consent";
 const Hero = () => {
   const { hasConsent } = useConsent();
   const [heroData, setHeroData] = useState({
-    title: "Anıların Işığında <br /> Profesyonel Çekimler",
-    subtitle: "Her karede duyguyu, hikâyeyi ve zamanı yakalıyoruz. Moda, etkinlik, ürün ve portre çekimlerinde estetik bakış açısıyla markanıza değer katarız.",
+    title: "Trabzon'da Anıların Işığında <br /> Profesyonel Fotoğraf & Video Çekimi",
+    subtitle: "Trabzon merkezli fotoğrafçılık ajansımızda her karede duyguyu, hikâyeyi ve zamanı yakalıyoruz. Düğün, dış çekim, moda, ürün, reklam ve kurumsal çekimlerde sinematik bakış açısıyla markanıza ve anılarınıza değer katarız.",
     mediaUrl: "/ana sayfa/gözdevideo.mp4",
     mediaType: "video",
     isEmbed: false
@@ -58,6 +58,9 @@ const Hero = () => {
         ) : isVideoMedia ? (
           <video
             src={getMediaUrl(heroData.mediaUrl)}
+            poster="/ana sayfa/gözdeçk.webp"
+            aria-hidden="true"
+            data-nosnippet="true"
             autoPlay
             loop
             muted
@@ -66,7 +69,7 @@ const Hero = () => {
             disablePictureInPicture
             disableRemotePlayback
             controlsList="nodownload nofullscreen noremoteplayback"
-            preload="auto"
+            preload="metadata"
             className="w-full h-full object-cover pointer-events-none"
           />
         ) : (

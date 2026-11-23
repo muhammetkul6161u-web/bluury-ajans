@@ -79,6 +79,8 @@ const About = () => {
             <video
               ref={(el) => setVideoRef(el, i)}
               src={slide.video}
+              aria-hidden="true"
+              data-nosnippet="true"
               muted
               loop
               playsInline

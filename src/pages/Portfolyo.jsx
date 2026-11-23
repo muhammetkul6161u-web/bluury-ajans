@@ -11,10 +11,10 @@ const Portfolyo = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>Portfolyo — Bluury Ajans | Düğün, Moda, Ürün Çekim Galerisi</title>
-        <meta name="description" content="Bluury Ajans portfolyo galerisi. Düğün, moda, ürün ve reklam çekimlerimizden seçme kareler." />
-        <meta property="og:title" content="Portfolyo — Bluury Ajans" />
-        <meta property="og:description" content="Düğün, moda, ürün ve reklam çekimlerimizden seçme kareler içeren portfolyomuzu inceleyin." />
+        <title>Trabzon Fotoğraf Çekimi Portfolyosu — Düğün, Dış Çekim & Reklam Galerisi | Bluury Ajans</title>
+        <meta name="description" content="Bluury Ajans Trabzon fotoğraf çekimi portfolyosu. Trabzon düğün hikayesi, Boztepe ve Uzungöl dış çekim, nişan, ürün ve kurumsal reklam çekimlerimizden seçme kareler ve müşteri referansları." />
+        <meta property="og:title" content="Trabzon Fotoğraf Çekimi Portfolyosu — Bluury Ajans" />
+        <meta property="og:description" content="Trabzon düğün, dış çekim, moda, ürün ve reklam çekimlerimizden seçme kareler içeren portfolyomuzu inceleyin." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blurryajans.com/portfolyo" />
         <meta name="robots" content="index, follow" />

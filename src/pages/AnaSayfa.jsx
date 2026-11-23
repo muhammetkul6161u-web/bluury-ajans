@@ -53,7 +53,49 @@ const portfolioItems = [
   },
 ];
 
-/* ── Çalışma süreci ── */
+/* ── Trabzon Çekim Bölgeleri & Uzmanlık Alanları (Yerel SEO) ── */
+const localAreas = [
+  {
+    region: "Ortahisar & Meydan",
+    title: "Stüdyo, Ürün & Kurumsal Çekim",
+    desc: "Gazipaşa'daki merkezi stüdyomuzda ve Trabzon Meydan çevresinde e-ticaret ürün fotoğrafçılığı, katalog, menü, kurumsal portre ve moda çekimleri gerçekleştiriyoruz.",
+  },
+  {
+    region: "Boztepe & Ganita",
+    title: "Gün Batımı & Dış Mekan Çekimi",
+    desc: "Trabzon'u panoramik gören Boztepe sırtlarında ve Ganita sahilinde altın saat (golden hour) ışığıyla sinematik çift, nişan, save the date ve mezuniyet dış çekimleri yapıyoruz.",
+  },
+  {
+    region: "Uzungöl, Maçka & Yaylalar",
+    title: "Doğa & Düğün Hikayesi",
+    desc: "Uzungöl, Sümela Manastırı, Hıdırnebi, Kayabaşı ve Trabzon'un eşsiz yayla doğasında gelin-damat dış çekimi ve tam gün sinematik düğün hikayesi klipleri üretiyoruz.",
+  },
+  {
+    region: "Akçaabat, Yomra & Tüm Karadeniz",
+    title: "Düğün, Etkinlik & Reklam Prodüksiyonu",
+    desc: "Akçaabat, Yomra, Ortahisar, Sürmene, Of başta olmak üzere tüm Trabzon ilçelerinde, Rize ve Giresun'da otel düğünleri, after party ve marka reklam çekimleri sunuyoruz.",
+  },
+];
+
+/* ── Ana Sayfa Sıkça Sorulan Sorular (Trabzon Fotoğrafçılık) ── */
+const homeFaqs = [
+  {
+    q: "Trabzon'da düğün ve dış çekim mekanları olarak nereleri tercih ediyorsunuz?",
+    a: "Çiftlerimizin konseptine göre Trabzon Ortahisar tarihi mekanları, Boztepe gün batımı noktaları, Akçaabat sahil ve Orta Mahalle sokakları, Uzungöl, Maçka, Sümela, KTÜ Kampüsü ve Trabzon yaylalarında profesyonel dış çekim yapıyoruz.",
+  },
+  {
+    q: "Trabzon fotoğraf çekimi ve düğün paketi fiyatları nasıl belirleniyor?",
+    a: "Çekim fiyatları; seçilen hizmet türüne (düğün hikayesi, dış mekan fotoğraf çekimi, nişan, mezuniyet, ürün veya reklam çekimi), çekim süresine, video klip ve albüm taleplerine göre size özel olarak planlanmaktadır. WhatsApp hattımızdan hızlıca fiyat teklifi alabilirsiniz.",
+  },
+  {
+    q: "İşletmeler için Trabzon'da ürün, menü ve sosyal medya reklam çekimi yapıyor musunuz?",
+    a: "Evet. Trabzon'daki markalar, restoranlar, oteller ve e-ticaret firmaları için yerinde veya Gazipaşa stüdyomuzda yüksek çözünürlüklü ürün fotoğrafçılığı, katalog çekimi ve Instagram/Reels odaklı kurumsal reklam videoları üretiyoruz.",
+  },
+  {
+    q: "Fotoğraf ve video teslim süresi ne kadar?",
+    a: "Çekim sonrasında seçilen tüm kareler profesyonel renk düzenlemesi (color grading) ve retouch işleminden geçirilerek, projeye göre ortalama 7 ila 14 iş günü içerisinde yüksek çözünürlüklü dijital ortamda teslim edilmektedir.",
+  },
+];
 const steps = [
   { step: "01", title: "Keşif & Planlama", desc: "Projenizi dinler, ihtiyaçlarınızı analiz eder ve size özel bir çekim planı hazırlarız." },
   { step: "02", title: "Profesyonel Çekim", desc: "Deneyimli ekibimizle, en modern ekipmanlarla unutulmaz kareler yakalarız." },
@@ -138,10 +180,11 @@ const AnaSayfa = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>Bluury Ajans — Trabzon'da Profesyonel Fotoğrafçılık ve Tasarım Hizmetleri</title>
-        <meta name="description" content="Bluury Ajans, Trabzon merkezli modern ve lüks fotoğrafçılık ajansıdır. Düğün, moda ve reklam çekimlerinde profesyonel hizmet." />
-        <meta property="og:title" content="Bluury Ajans — Trabzon'da Profesyonel Fotoğrafçılık" />
-        <meta property="og:description" content="Trabzon merkezli modern ve lüks fotoğrafçılık ajansı. Düğün, dış çekim ve moda fotoğrafçılığı." />
+        <title>Trabzon Fotoğrafçı & Profesyonel Çekim — Bluury Ajans (Blurry Ajans)</title>
+        <meta name="description" content="Trabzon fotoğrafçı ve profesyonel fotoğraf çekimi ajansı Bluury Ajans (Blurry Ajans). Trabzon düğün fotoğrafçısı, nişan, dış çekim, moda, reklam, ürün fotoğrafçılığı ve sinematik video klip çekimi." />
+        <meta name="keywords" content="Trabzon fotoğrafçı, Trabzon fotoğraf çekimi, Trabzon düğün fotoğrafçısı, Trabzon dış çekim, Bluury Ajans, Blurry Ajans, Trabzon ürün çekimi, Trabzon reklam ajansı, Trabzon fotoğraf stüdyosu, Trabzon mezuniyet çekimi" />
+        <meta property="og:title" content="Trabzon Fotoğrafçı & Profesyonel Çekim — Bluury Ajans" />
+        <meta property="og:description" content="Trabzon merkezli modern ve lüks fotoğrafçılık ajansı. Düğün, nişan, dış çekim, moda, reklam ve ürün fotoğrafçılığı." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blurryajans.com/" />
         <link rel="canonical" href="https://blurryajans.com/" />
@@ -355,6 +398,79 @@ const AnaSayfa = () => {
                   <p className="text-[#555555] text-sm font-light leading-relaxed">{s.desc}</p>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── TRABZON ÇEKİM BÖLGELERİ & YEREL UZMANLIK ── */}
+        <section className="relative py-16 md:py-28 border-t border-[#C8A45A]/10">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-4"
+            >
+              <DecoratedHeading text="Trabzon'da Çekim Bölgelerimiz" />
+            </motion.h2>
+            <p className="text-center text-[#333333] text-sm md:text-base font-medium max-w-2xl mx-auto mb-14">
+              Ortahisar merkez stüdyomuzdan Uzungöl ve yaylalara kadar Trabzon'un her noktasında profesyonel fotoğraf ve video çekimi.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {localAreas.map((area, i) => (
+                <motion.article
+                  key={i}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-[#FAFAF8] p-7 rounded-2xl border border-black/5 hover:border-[#C8A45A]/40 transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(200,164,90,0.1)] flex flex-col justify-between"
+                >
+                  <div>
+                    <span className="inline-block text-[#C8A45A] text-[11px] font-bold tracking-[0.2em] uppercase mb-2">
+                      {area.region}
+                    </span>
+                    <h3 className="font-heading text-xl text-[#1A1A1A] mb-3 leading-snug">
+                      {area.title}
+                    </h3>
+                    <p className="text-[#555555] text-sm font-light leading-relaxed">
+                      {area.desc}
+                    </p>
+                  </div>
+                  <div className="pt-5 mt-5 border-t border-black/5">
+                    <Link
+                      to="/iletisim"
+                      className="text-xs font-bold tracking-widest uppercase text-[#8A6D2E] hover:text-[#C8A45A] transition-colors no-underline"
+                    >
+                      Randevu & Bilgi Al →
+                    </Link>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+
+            {/* Sıkça Sorulan Sorular Özeti (Trabzon SEO) */}
+            <div className="mt-20 max-w-4xl mx-auto bg-[#FAFAF8] rounded-3xl border border-black/5 p-6 sm:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
+              <h3 className="font-heading text-2xl md:text-3xl text-[#1A1A1A] text-center mb-8">
+                Trabzon Fotoğraf Çekimi Hakkında Merak Edilenler
+              </h3>
+              <div className="space-y-4">
+                {homeFaqs.map((item, idx) => (
+                  <details
+                    key={idx}
+                    className="group border-b border-black/10 last:border-0 pb-4"
+                  >
+                    <summary className="flex items-center justify-between cursor-pointer list-none font-semibold text-[#1A1A1A] text-sm md:text-base py-2 hover:text-[#C8A45A] transition-colors">
+                      <span>{item.q}</span>
+                      <span className="text-[#C8A45A] ml-4 transition-transform duration-300 group-open:rotate-45 text-xl leading-none">+</span>
+                    </summary>
+                    <p className="text-[#555555] text-sm font-light leading-relaxed pt-2">
+                      {item.a}
+                    </p>
+                  </details>
+                ))}
+              </div>
             </div>
           </div>
         </section>

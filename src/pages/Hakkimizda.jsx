@@ -18,10 +18,10 @@ const Hakkimizda = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>Hakkımızda — Bluury Ajans | Trabzon Fotoğrafçılık Ajansı</title>
-        <meta name="description" content="Bluury Ajans'ın hikâyesini keşfedin. Trabzon'da fotoğrafçılık tutkusu ile kurulan modern ve lüks fotoğraf ajansımız." />
-        <meta property="og:title" content="Hakkımızda — Bluury Ajans" />
-        <meta property="og:description" content="Bluury Ajans'ın hikâyesini keşfedin. Trabzon merkezli profesyonel fotoğrafçılık stüdyosu." />
+        <title>Hakkımızda — Bluury Ajans | Trabzon Fotoğrafçılık ve Prodüksiyon Ajansı</title>
+        <meta name="description" content="Bluury Ajans (Blurry Ajans) hikâyesini keşfedin. Trabzon Ortahisar merkezli modern ve lüks fotoğrafçılık stüdyomuzda düğün, dış çekim, ürün ve kurumsal reklam prodüksiyonu." />
+        <meta property="og:title" content="Hakkımızda — Bluury Ajans | Trabzon Fotoğrafçılık Ajansı" />
+        <meta property="og:description" content="Bluury Ajans'ın hikâyesini keşfedin. Trabzon merkezli profesyonel fotoğrafçılık ve video çekim stüdyosu." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blurryajans.com/hakkimizda" />
         <meta name="robots" content="index, follow" />

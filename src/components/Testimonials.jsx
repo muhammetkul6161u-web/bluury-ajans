@@ -72,6 +72,9 @@ const ReviewCard = ({ review, idx, setSelectedReview }) => {
         <video
           ref={videoRef}
           src={getMediaUrl(review.mediaUrl)}
+          poster="/Portfoy/Dugun/dugun1.webp"
+          aria-hidden="true"
+          data-nosnippet="true"
           muted
           loop
           playsInline
@@ -80,7 +83,7 @@ const ReviewCard = ({ review, idx, setSelectedReview }) => {
           disableRemotePlayback
           controlsList="nodownload nofullscreen noremoteplayback"
           controls={false}
-          preload="metadata"
+          preload="none"
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform [transition-duration:6000ms] ease-out pointer-events-none opacity-80 group-hover:opacity-100"
         />
       )}

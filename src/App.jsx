@@ -103,21 +103,28 @@ const MainLayout = () => {
 };
 
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
-
-  useEffect(() => {
-    // Arama motoru botları (Googlebot, Bingbot vb.) için splash ekranını atla
+  const [showSplash, setShowSplash] = useState(() => {
+    if (typeof window === "undefined") return false;
     const isBot =
       typeof navigator !== "undefined" &&
-      /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(navigator.userAgent);
-    if (isBot) {
-      setShowSplash(false);
-      return;
-    }
+      /bot|googlebot|crawler|spider|robot|crawling|lighthouse|inspect|headless|chrome-lighthouse|pagespeed|gtmetrix|bingbot|yandex/i.test(
+        navigator.userAgent
+      );
+    if (isBot) return false;
+    try {
+      if (sessionStorage.getItem("bluury_splash_seen")) return false;
+    } catch {}
+    return true;
+  });
 
-    const timer = setTimeout(() => setShowSplash(false), 3000);
+  useEffect(() => {
+    if (!showSplash) return;
+    try {
+      sessionStorage.setItem("bluury_splash_seen", "1");
+    } catch {}
+    const timer = setTimeout(() => setShowSplash(false), 2200);
     return () => clearTimeout(timer);
-  }, []);
+  }, [showSplash]);
 
   return (
     <>
